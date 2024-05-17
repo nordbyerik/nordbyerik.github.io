@@ -25,7 +25,8 @@ export default {
       height: 600,
       x: 0.01,
       y: 0.0,
-      z: 0.0
+      z: 0.0,
+      points: []
     };
   },
   mounted() {
@@ -42,30 +43,48 @@ export default {
       const rho = 28;
       const beta = 8 / 3;
 
-      const points = [];
-      for (let i = 0; i < 10000; i++) {
-        const dx = sigma * (this.y - this.x) * dt;
-        const dy = (this.x * (rho - this.z) - this.y) * dt;
-        const dz = (this.x * this.y - beta * this.z) * dt;
-
-        this.x += dx;
-        this.y += dy;
-        this.z += dz;
-
-        points.push([this.x, this.y]);
-      }
-
       const scale = 10;
       const line = d3.line()
                      .x(d => d[0] * scale)
                      .y(d => d[1] * scale);
 
-      g.append('path')
-       .datum(points)
-       .attr('fill', 'none')
-       .attr('stroke', 'black')
-       .attr('stroke-width', 0.5)
-       .attr('d', line);
+      // Initial points
+      for (let i = 0; i < 1000; i++) {
+        this.updateLorenzAttractor(sigma, rho, beta, dt);
+      }
+
+      const path = g.append('path')
+                    .datum(this.points)
+                    .attr('fill', 'none')
+                    .attr('stroke', 'black')
+                    .attr('stroke-width', 0.5)
+                    .attr('d', line);
+
+      // Animation function
+      const animate = () => {
+        for (let i = 0; i < 10; i++) { // Increase speed of animation
+          this.updateLorenzAttractor(sigma, rho, beta, dt);
+        }
+        path.datum(this.points).attr('d', line);
+        requestAnimationFrame(animate);
+      };
+
+      animate();
+    },
+    updateLorenzAttractor(sigma, rho, beta, dt) {
+      const dx = sigma * (this.y - this.x) * dt;
+      const dy = (this.x * (rho - this.z) - this.y) * dt;
+      const dz = (this.x * this.y - beta * this.z) * dt;
+
+      this.x += dx;
+      this.y += dy;
+      this.z += dz;
+
+      this.points.push([this.x, this.y]);
+
+      if (this.points.length > 10000) {
+        this.points.shift(); // Remove old points to keep the animation smooth
+      }
     },
     scrollToPortfolio() {
       const portfolio = document.getElementById('portfolio');
