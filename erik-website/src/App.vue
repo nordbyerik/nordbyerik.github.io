@@ -2,14 +2,38 @@
   <div id="app">
     <div id="header">
       <h1>Erik Nordby</h1>
+      <nav>
+        <a @click="scrollToSection('about')">About Me</a>
+        <a @click="scrollToSection('projects')">Projects</a>
+        <a @click="scrollToSection('contact')">Contact</a>
+      </nav>
     </div>
     <svg ref="svg" :width="width" :height="height"></svg>
     <button @click="scrollToPortfolio" class="down-arrow">⬇</button>
     <div id="portfolio">
-      <!-- Portfolio content goes here -->
-      <h2>Portfolio</h2>
-      <p>Welcome to my portfolio site!</p>
-      <!-- Add more portfolio content as needed -->
+      <section id="about">
+        <h2>About Me</h2>
+        <p>Hello! I'm Erik Nordby, a software engineer with a passion for AI and machine learning.</p>
+        <p>I am currently pursuing a Master's in Deep Learning and considering a PhD related to AI Safety.</p>
+        <p>With extensive experience in software development and a keen interest in cutting-edge technology, I am eager to contribute to innovative projects and explore new opportunities.</p>
+      </section>
+      <section id="projects">
+        <h2>Projects</h2>
+        <ul>
+          <li><strong>Project 1:</strong> Description of the first project.</li>
+          <li><strong>Project 2:</strong> Description of the second project.</li>
+          <li><strong>Project 3:</strong> Description of the third project.</li>
+        </ul>
+      </section>
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>Feel free to reach out to me through the following channels:</p>
+        <ul>
+          <li>Email: <a href="mailto:erik.nordby@example.com">erik.nordby@example.com</a></li>
+          <li>LinkedIn: <a href="https://www.linkedin.com/in/eriknordby" target="_blank">linkedin.com/in/eriknordby</a></li>
+          <li>GitHub: <a href="https://github.com/eriknordby" target="_blank">github.com/eriknordby</a></li>
+        </ul>
+      </section>
     </div>
   </div>
 </template>
@@ -23,10 +47,7 @@ export default {
     return {
       width: 800,
       height: 600,
-      x: 0.01,
-      y: 0.0,
-      z: 0.0,
-      points: []
+      particles: []
     };
   },
   mounted() {
@@ -43,52 +64,66 @@ export default {
       const rho = 28;
       const beta = 8 / 3;
 
+      const numParticles = 100;
       const scale = 10;
-      const line = d3.line()
-                     .x(d => d[0] * scale)
-                     .y(d => d[1] * scale);
 
-      // Initial points
-      for (let i = 0; i < 1000; i++) {
-        this.updateLorenzAttractor(sigma, rho, beta, dt);
+      // Initialize particles
+      for (let i = 0; i < numParticles; i++) {
+        this.particles.push({
+          x: 0.01 + Math.random() * 0.02 - 0.01,
+          y: 0.0 + Math.random() * 0.02 - 0.01,
+          z: 0.0 + Math.random() * 0.02 - 0.01,
+          points: []
+        });
       }
 
-      const path = g.append('path')
-                    .datum(this.points)
-                    .attr('fill', 'none')
-                    .attr('stroke', 'black')
-                    .attr('stroke-width', 0.5)
-                    .attr('d', line);
+      // Create path for each particle
+      const paths = g.selectAll('path')
+                     .data(this.particles)
+                     .enter()
+                     .append('path')
+                     .attr('fill', 'none')
+                     .attr('stroke', 'black')
+                     .attr('stroke-width', 0.5);
 
       // Animation function
       const animate = () => {
-        for (let i = 0; i < 10; i++) { // Increase speed of animation
-          this.updateLorenzAttractor(sigma, rho, beta, dt);
-        }
-        path.datum(this.points).attr('d', line);
+        this.particles.forEach(particle => {
+          for (let i = 0; i < 10; i++) { // Increase speed of animation
+            this.updateLorenzAttractor(particle, sigma, rho, beta, dt);
+          }
+        });
+
+        paths.attr('d', d => d3.line()
+                               .x(p => p[0] * scale)
+                               .y(p => p[1] * scale)(d.points));
         requestAnimationFrame(animate);
       };
 
       animate();
     },
-    updateLorenzAttractor(sigma, rho, beta, dt) {
-      const dx = sigma * (this.y - this.x) * dt;
-      const dy = (this.x * (rho - this.z) - this.y) * dt;
-      const dz = (this.x * this.y - beta * this.z) * dt;
+    updateLorenzAttractor(particle, sigma, rho, beta, dt) {
+      const dx = sigma * (particle.y - particle.x) * dt;
+      const dy = (particle.x * (rho - particle.z) - particle.y) * dt;
+      const dz = (particle.x * particle.y - beta * particle.z) * dt;
 
-      this.x += dx;
-      this.y += dy;
-      this.z += dz;
+      particle.x += dx;
+      particle.y += dy;
+      particle.z += dz;
 
-      this.points.push([this.x, this.y]);
+      particle.points.push([particle.x, particle.y]);
 
-      if (this.points.length > 10000) {
-        this.points.shift(); // Remove old points to keep the animation smooth
+      if (particle.points.length > 100) {
+        particle.points.shift(); // Remove old points to keep the animation smooth
       }
     },
     scrollToPortfolio() {
       const portfolio = document.getElementById('portfolio');
       portfolio.scrollIntoView({ behavior: 'smooth' });
+    },
+    scrollToSection(id) {
+      const section = document.getElementById(id);
+      section.scrollIntoView({ behavior: 'smooth' });
     }
   }
 };
@@ -117,6 +152,22 @@ export default {
   color: black;
 }
 
+#header nav {
+  margin-top: 10px;
+}
+
+#header nav a {
+  margin: 0 10px;
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+#header nav a:hover {
+  text-decoration: underline;
+}
+
 svg {
   border: 1px solid #000; /* black border */
   margin-top: 60px; /* space for the title */
@@ -136,6 +187,10 @@ svg {
   width: 100%;
   padding: 50px;
   text-align: center;
+}
+
+#portfolio section {
+  margin: 50px 0;
 }
 
 #portfolio h2 {
