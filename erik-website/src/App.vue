@@ -1,20 +1,28 @@
 <template>
   <div id="app">
-    <div class="overlay">Sorry! Updating this site</div>
-    <HeaderSection @scrollTo="scrollToSection" />
-    <LorenzAttractor />
+    <div class="overlay">
+      <div>
+        <HeaderSection @scrollTo="scrollToSection" />
+      </div>
+      <div>
+        <LogoSection />
+      </div>
+    </div>
+    <LorenzAttractor class="attractor" />
   </div>
 </template>
 
 <script>
 import HeaderSection from "./components/HeaderSection.vue";
 import LorenzAttractor from "./components/LorenzAttractor.vue";
+import LogoSection from "./components/LogoSection.vue";
 
 export default {
   name: "App",
   components: {
     HeaderSection,
     LorenzAttractor,
+    LogoSection,
   },
   methods: {
     scrollToSection(id) {
@@ -27,10 +35,8 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&display=swap");
 html,
 body {
-  font-family: "Playfair Display", sans-serif;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -49,6 +55,20 @@ body {
   align-items: center;
   background-color: #d2b48c; /* softer tan background */
 }
+
+.attractor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-size: 24px;
+}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -56,6 +76,7 @@ body {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: rgba(

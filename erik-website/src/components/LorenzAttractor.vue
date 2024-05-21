@@ -26,7 +26,8 @@ export default {
   methods: {
     sketch(p) {
       p.setup = () => {
-        p.createCanvas(500, 750, p.WEBGL);
+        // eslint-disable-next-line
+        p.createCanvas(window.innerWidth, window.innerHeight, p.WEBGL);
         p.colorMode(p.RGB);
         this.trails = this.pointsData.map(() => []); // Initialize a trail array for each point
       };
@@ -52,8 +53,8 @@ export default {
         });
 
         p.translate(0, 0, -80);
-        let camX = p.map(p.mouseX, 0, p.width, -20, 20);
-        let camY = p.map(p.mouseY, 0, p.height, -20, 20);
+        let camX = p.map(p.mouseX, 0, p.width, -250, 250);
+        let camY = p.map(p.mouseY, 0, p.height, -250, 250);
         p.camera(
           camX,
           camY,
@@ -65,7 +66,7 @@ export default {
           1,
           0
         );
-        p.scale(5);
+        p.scale(10);
         p.stroke(255);
         p.noFill();
 
