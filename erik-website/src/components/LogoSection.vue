@@ -15,6 +15,9 @@
     <a href="https://linktr.ee/eriknordby" target="_blank">
       <img src="@/assets/linktree.png" alt="Twitter" />
     </a>
+    <a href="mailto:enordby3@gatech.edu"
+      ><img src="@/assets/email.webp" alt="EMail"
+    /></a>
   </div>
 </template>
 <style>
