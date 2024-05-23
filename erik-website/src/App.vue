@@ -53,7 +53,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(242, 201, 255); /* softer tan background */
+  background-color: rgb(238, 184, 255); /* softer tan background */
 }
 
 .attractor {

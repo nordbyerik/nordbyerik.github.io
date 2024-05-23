@@ -33,7 +33,7 @@ export default {
       };
 
       p.draw = () => {
-        p.background(242, 201, 255);
+        p.background(238, 184, 255);
 
         let dt = 0.01;
 
