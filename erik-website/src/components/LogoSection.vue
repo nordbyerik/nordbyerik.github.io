@@ -15,6 +15,9 @@
     <a href="https://linktr.ee/eriknordby" target="_blank">
       <img src="@/assets/linktree.png" alt="Twitter" />
     </a>
+    <a href="/assets/Erik_Nordby_Resume.pdf" target="_blank" rel="noopener noreferrer">
+      View My Resume
+    </a>
   </div>
 </template>
 <style>
