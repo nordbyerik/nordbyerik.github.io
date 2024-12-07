@@ -1,0 +1,197 @@
+{
+  "total_runs": 4,
+  "runs": [
+    {
+      "run_id": "run2",
+      "simulation_metadata": {
+        "num_timesteps": 5,
+        "num_users": 3
+      },
+      "platform_configs": {
+        "platform_1": {
+          "toxicity_threshold": "0.05",
+          "moderation_style": {
+            "full_ban": "true",
+            "partial_ban": "true",
+            "warning": "true",
+            "remove_content": "false"
+          },
+          "network_thresholds": {
+            "ban": "1",
+            "warning": "1"
+          }
+        },
+        "platform_2": {
+          "toxicity_threshold": "0.05",
+          "moderation_style": {
+            "full_ban": "false",
+            "partial_ban": "true",
+            "warning": "true",
+            "remove_content": "false"
+          },
+          "network_thresholds": {
+            "ban": "10",
+            "warning": "1"
+          }
+        },
+        "platform_3": {
+          "toxicity_threshold": "0.4",
+          "moderation_style": {
+            "full_ban": "false",
+            "partial_ban": "true",
+            "warning": "true",
+            "remove_content": "false"
+          },
+          "network_thresholds": {
+            "ban": "2",
+            "warning": "1"
+          }
+        }
+      }
+    },
+    {
+      "run_id": "run4",
+      "simulation_metadata": {
+        "num_timesteps": 100,
+        "num_users": 10
+      },
+      "platform_configs": {
+        "platform_1": {
+          "toxicity_threshold": "0.05",
+          "moderation_style": {
+            "full_ban": "true",
+            "partial_ban": "true",
+            "warning": "true",
+            "remove_content": "true"
+          },
+          "network_thresholds": {
+            "ban": "1",
+            "warning": "1"
+          }
+        },
+        "platform_2": {
+          "toxicity_threshold": "0.05",
+          "moderation_style": {
+            "full_ban": "true",
+            "partial_ban": "true",
+            "warning": "true",
+            "remove_content": "true"
+          },
+          "network_thresholds": {
+            "ban": "2",
+            "warning": "10"
+          }
+        },
+        "platform_3": {
+          "toxicity_threshold": "0.4",
+          "moderation_style": {
+            "full_ban": "false",
+            "partial_ban": "true",
+            "warning": "true",
+            "remove_content": "false"
+          },
+          "network_thresholds": {
+            "ban": "2",
+            "warning": "1"
+          }
+        }
+      }
+    },
+    {
+      "run_id": "run3",
+      "simulation_metadata": {
+        "num_timesteps": 5,
+        "num_users": 3
+      },
+      "platform_configs": {
+        "platform_1": {
+          "toxicity_threshold": "0.05",
+          "moderation_style": {
+            "full_ban": "true",
+            "partial_ban": "true",
+            "warning": "true",
+            "remove_content": "true"
+          },
+          "network_thresholds": {
+            "ban": "1",
+            "warning": "1"
+          }
+        },
+        "platform_2": {
+          "toxicity_threshold": "0.05",
+          "moderation_style": {
+            "full_ban": "true",
+            "partial_ban": "true",
+            "warning": "true",
+            "remove_content": "true"
+          },
+          "network_thresholds": {
+            "ban": "2",
+            "warning": "10"
+          }
+        },
+        "platform_3": {
+          "toxicity_threshold": "0.4",
+          "moderation_style": {
+            "full_ban": "false",
+            "partial_ban": "true",
+            "warning": "true",
+            "remove_content": "false"
+          },
+          "network_thresholds": {
+            "ban": "2",
+            "warning": "1"
+          }
+        }
+      }
+    },
+    {
+      "run_id": "run1",
+      "simulation_metadata": {
+        "num_timesteps": 5,
+        "num_users": 3
+      },
+      "platform_configs": {
+        "platform_1": {
+          "toxicity_threshold": "0.05",
+          "moderation_style": {
+            "full_ban": "true",
+            "partial_ban": "true",
+            "warning": "true",
+            "remove_content": "false"
+          },
+          "network_thresholds": {
+            "ban": "1",
+            "warning": "1"
+          }
+        },
+        "platform_2": {
+          "toxicity_threshold": "0.05",
+          "moderation_style": {
+            "full_ban": "false",
+            "partial_ban": "true",
+            "warning": "true",
+            "remove_content": "false"
+          },
+          "network_thresholds": {
+            "ban": "10",
+            "warning": "1"
+          }
+        },
+        "platform_3": {
+          "toxicity_threshold": "0.4",
+          "moderation_style": {
+            "full_ban": "false",
+            "partial_ban": "true",
+            "warning": "true",
+            "remove_content": "false"
+          },
+          "network_thresholds": {
+            "ban": "2",
+            "warning": "1"
+          }
+        }
+      }
+    }
+  ]
+}

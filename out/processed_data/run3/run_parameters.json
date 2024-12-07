@@ -1,0 +1,45 @@
+{
+  "run_id": "run3",
+  "platform_1": {
+    "model name": "Toxic Model 1",
+    "network name": "Network1",
+    "interval time duration": "0.1",
+    "maximum post inactivity": "24.0",
+    "toxicity threshold": "0.05",
+    "full ban": "true",
+    "partial ban": "true",
+    "warning": "true",
+    "remove content": "true",
+    "network ban threshold": "1",
+    "network warning threshold": "1",
+    "moderation miss probability": "0.2"
+  },
+  "platform_2": {
+    "model name": "Toxic Model 2",
+    "network name": "Network2",
+    "interval time duration": "0.1",
+    "maximum post inactivity": "24.0",
+    "toxicity threshold": "0.05",
+    "full ban": "true",
+    "partial ban": "true",
+    "warning": "true",
+    "remove content": "true",
+    "network ban threshold": "2",
+    "network warning threshold": "10",
+    "moderation miss probability": "0.4"
+  },
+  "platform_3": {
+    "model name": "Toxic Model 3",
+    "network name": "Network3",
+    "interval time duration": "0.1",
+    "maximum post inactivity": "24.0",
+    "toxicity threshold": "0.4",
+    "full ban": "false",
+    "partial ban": "true",
+    "warning": "true",
+    "remove content": "false",
+    "network ban threshold": "2",
+    "network warning threshold": "1",
+    "moderation miss probability": "0.6"
+  }
+}

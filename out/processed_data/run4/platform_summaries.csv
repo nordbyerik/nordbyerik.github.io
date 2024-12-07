@@ -1,0 +1,4 @@
+platform_name,platform_id,total_active_users,total_timeperiods,bans_issued,warnings_issued
+Toxic Model 1,1,10,3,21,21
+Toxic Model 3,3,9,3,0,0
+Toxic Model 2,2,9,3,10,19

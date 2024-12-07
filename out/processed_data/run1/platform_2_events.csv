@@ -1,0 +1,9 @@
+platform,timestamp,author,author_toxicity,toxicity,knowledge,platform_model name,platform_network name,platform_interval time duration,platform_maximum post inactivity,platform_toxicity threshold,platform_full ban,platform_partial ban,platform_warning,platform_remove content,platform_network ban threshold,platform_network warning threshold,platform_moderation miss probability
+2,0,agent_0,0.297102,,0,Toxic Model 2,Network2,0.1,24.0,0.05,false,true,true,false,10,1,0.3
+2,2,agent_0,0.297102,,0,Toxic Model 2,Network2,0.1,24.0,0.05,false,true,true,false,10,1,0.3
+2,2,agent_1,0.899498,0.8577760457992554,0,Toxic Model 2,Network2,0.1,24.0,0.05,false,true,true,false,10,1,0.3
+2,2,agent_1,0.899498,,0,Toxic Model 2,Network2,0.1,24.0,0.05,false,true,true,false,10,1,0.3
+2,2,agent_1,0.899498,,0,Toxic Model 2,Network2,0.1,24.0,0.05,false,true,true,false,10,1,0.3
+2,2,agent_1,0.899498,0.2300269603729248,0,Toxic Model 2,Network2,0.1,24.0,0.05,false,true,true,false,10,1,0.3
+2,3,agent_1,0.899498,0.5885230898857117,0,Toxic Model 2,Network2,0.1,24.0,0.05,false,true,true,false,10,1,0.3
+2,4,agent_1,0.899498,,0,Toxic Model 2,Network2,0.1,24.0,0.05,false,true,true,false,10,1,0.3

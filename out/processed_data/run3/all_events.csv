@@ -1,0 +1,24 @@
+platform,timestamp,author,author_toxicity,toxicity,knowledge,platform_model name,platform_network name,platform_interval time duration,platform_maximum post inactivity,platform_toxicity threshold,platform_full ban,platform_partial ban,platform_warning,platform_remove content,platform_network ban threshold,platform_network warning threshold,platform_moderation miss probability
+1,2,agent_0,0.297102,,0,Toxic Model 1,Network1,0.1,24.0,0.05,true,true,true,true,1,1,0.2
+1,2,agent_1,0.899498,0.5098198652267456,0,Toxic Model 1,Network1,0.1,24.0,0.05,true,true,true,true,1,1,0.2
+1,2,agent_1,0.899498,0.5984488129615784,0,Toxic Model 1,Network1,0.1,24.0,0.05,true,true,true,true,1,1,0.2
+1,4,agent_0,0.297102,0.21649187803268433,0,Toxic Model 1,Network1,0.1,24.0,0.05,true,true,true,true,1,1,0.2
+1,4,agent_1,0.899498,0.5616269707679749,0,Toxic Model 1,Network1,0.1,24.0,0.05,true,true,true,true,1,1,0.2
+1,4,agent_2,0.1,0.046827998012304306,0,Toxic Model 1,Network1,0.1,24.0,0.05,true,true,true,true,1,1,0.2
+2,0,agent_0,0.297102,,0,Toxic Model 2,Network2,0.1,24.0,0.05,true,true,true,true,2,10,0.4
+2,2,agent_0,0.297102,,0,Toxic Model 2,Network2,0.1,24.0,0.05,true,true,true,true,2,10,0.4
+2,2,agent_1,0.899498,0.8577760457992554,0,Toxic Model 2,Network2,0.1,24.0,0.05,true,true,true,true,2,10,0.4
+2,2,agent_1,0.899498,,0,Toxic Model 2,Network2,0.1,24.0,0.05,true,true,true,true,2,10,0.4
+2,2,agent_1,0.899498,,0,Toxic Model 2,Network2,0.1,24.0,0.05,true,true,true,true,2,10,0.4
+2,2,agent_1,0.899498,0.2300269603729248,0,Toxic Model 2,Network2,0.1,24.0,0.05,true,true,true,true,2,10,0.4
+2,3,agent_1,0.899498,0.5885230898857117,0,Toxic Model 2,Network2,0.1,24.0,0.05,true,true,true,true,2,10,0.4
+2,4,agent_1,0.899498,,0,Toxic Model 2,Network2,0.1,24.0,0.05,true,true,true,true,2,10,0.4
+3,1,agent_0,0.297102,,0,Toxic Model 3,Network3,0.1,24.0,0.4,false,true,true,false,2,1,0.6
+3,2,agent_0,0.297102,,0,Toxic Model 3,Network3,0.1,24.0,0.4,false,true,true,false,2,1,0.6
+3,2,agent_1,0.899498,,0,Toxic Model 3,Network3,0.1,24.0,0.4,false,true,true,false,2,1,0.6
+3,2,agent_1,0.899498,,0,Toxic Model 3,Network3,0.1,24.0,0.4,false,true,true,false,2,1,0.6
+3,2,agent_1,0.899498,,0,Toxic Model 3,Network3,0.1,24.0,0.4,false,true,true,false,2,1,0.6
+3,2,agent_1,0.899498,0.2211603969335556,0,Toxic Model 3,Network3,0.1,24.0,0.4,false,true,true,false,2,1,0.6
+3,3,agent_1,0.899498,0.8438851833343506,0,Toxic Model 3,Network3,0.1,24.0,0.4,false,true,true,false,2,1,0.6
+3,4,agent_0,0.297102,,0,Toxic Model 3,Network3,0.1,24.0,0.4,false,true,true,false,2,1,0.6
+3,4,agent_2,0.1,0.019691700115799904,0,Toxic Model 3,Network3,0.1,24.0,0.4,false,true,true,false,2,1,0.6
