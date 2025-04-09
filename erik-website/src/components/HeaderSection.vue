@@ -17,7 +17,7 @@
 }
 
 #HeaderSection h1 {
-  font-family: "Playfair Display", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 2em;
   color: black;
   margin: 0;

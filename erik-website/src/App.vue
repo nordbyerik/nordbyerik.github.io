@@ -2,10 +2,13 @@
   <div id="app">
     <div class="overlay">
       <div>
-        <HeaderSection @scrollTo="scrollToSection" />
+        <HeaderSection />
       </div>
       <div>
         <LogoSection />
+      </div>
+      <div class="projects-section">
+        <ProjectCards />
       </div>
     </div>
     <LorenzAttractor class="attractor" />
@@ -16,6 +19,7 @@
 import HeaderSection from "./components/HeaderSection.vue";
 import LorenzAttractor from "./components/LorenzAttractor.vue";
 import LogoSection from "./components/LogoSection.vue";
+import ProjectCards from "./components/ProjectCards.vue";
 
 export default {
   name: "App",
@@ -23,6 +27,7 @@ export default {
     HeaderSection,
     LorenzAttractor,
     LogoSection,
+    ProjectCards
   },
   methods: {
     scrollToSection(id) {
@@ -35,6 +40,7 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 html,
 body {
   margin: 0;
@@ -53,7 +59,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(238, 184, 255); /* softer tan background */
 }
 
 .attractor {
@@ -79,14 +84,22 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.8
-  ); /* semi-transparent white overlay */
+  background-color: rgba(242, 219, 192, 0.884); /* Lighter transparent overlay */
   color: black;
   font-size: 24px;
   z-index: 1000; /* ensures the overlay is above all other content */
+  overflow-y: auto; /* Allow scrolling if content is too tall */
+  padding: 20px 0;
+}
+
+.projects-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.projects-section h2 {
+  display: none; /* Hide the heading as it's not in the reference image */
 }
 </style>
