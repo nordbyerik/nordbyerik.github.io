@@ -12,9 +12,6 @@
     <a href="https://www.linkedin.com/in/erik-nordby/" target="_blank">
       <img src="@/assets/linkedin.webp" alt="LinkedIn" />
     </a>
-    <a href="https://linktr.ee/eriknordby" target="_blank">
-      <img src="@/assets/linktree.png" alt="Twitter" />
-    </a>
   </div>
 </template>
 <style>

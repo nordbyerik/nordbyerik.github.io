@@ -34,17 +34,17 @@ export default {
       projects: [
         {
           title: "MODEL SCOPING (Work In Progress)",
-          description: "Developing a robust framework for implementing the principle of least privilege in large language models. This approach enhances security while preserving model functionality. Expanding the concept with their research studio.",
+          description: "Developed and evaluated methods for scoping language models to specific tasks. This looks to approach safety from a Zero Trust posture to significantly enhance security while largely preserving model functionality. Initially developed as apart of a Hackathon with Apart Research, we are now expanding the concept with their research studio.",
           githubLink: "https://bit.ly/model-scoping"
         },
         {
           title: "MULTI-AGENT LLM RISKS (Work In Progress)",
-          description: "Working on a systematic literature review evaluating empirical evidence of risks in multi-agent LLM systems. This research synthesizes cutting-edge findings across interaction patterns, emergent behaviors, and governance implications to establish a foundational framework for safer AI deployment.",
+          description: "Working on a systematic literature review evaluating empirical evidence of risks in multi-agent LLM systems.",
           githubLink: "https://safe-mustang-98d.notion.site/Multi-Agent-Risks-1d068745bc888085b062fadcb50a1412"
         },
         {
           title: "SOCIAL MEDIA TOXICITY",
-          description: "Engineered advanced simulations to quantify moderation impact on social media toxicity levels. Extended the CMU CASOS laboratory's simulation framework with novel metrics and interaction patterns, generating compelling insights for platform governance. Research accepted for poster presentation.",
+          description: "Engineered simulations to quantify moderation impact on social media toxicity levels. Extended the CMU CASOS laboratory's simulation framework with new interaction patterns, generating insights for platform governance. Research accepted for poster presentation.",
           githubLink: "https://toxicity-analysis.vercel.app/"
         },
         
