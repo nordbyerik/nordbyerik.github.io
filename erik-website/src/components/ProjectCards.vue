@@ -34,7 +34,7 @@ export default {
       projects: [
         {
           title: "MODEL SCOPING (Work In Progress)",
-          description: "Developing a robust framework for implementing the principle of least privilege in large language models. This pioneering approach enhances security while preserving model functionality. Named finalist in Apart Research's Hackathon, now expanding the concept with their research studio.",
+          description: "Developing a robust framework for implementing the principle of least privilege in large language models. This approach enhances security while preserving model functionality. Expanding the concept with their research studio.",
           githubLink: "https://bit.ly/model-scoping"
         },
         {
