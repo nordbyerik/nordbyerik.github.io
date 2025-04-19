@@ -35,7 +35,7 @@ export default {
         {
           title: "MODEL SCOPING (Work In Progress)",
           description: "Developed and evaluated methods for scoping language models to specific tasks. This looks to approach safety from a Zero Trust posture to significantly enhance security while largely preserving model functionality. Initially developed as apart of a Hackathon with Apart Research, we are now expanding the concept with their research studio.",
-          githubLink: "https://bit.ly/model-scoping"
+          githubLink: "https://www.lesswrong.com/posts/wvEJ5mRbBEDxuiHrL/scoping-llms"
         },
         {
           title: "MULTI-AGENT LLM RISKS (Work In Progress)",
