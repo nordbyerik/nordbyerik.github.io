@@ -1,0 +1,644 @@
+/* Bauhaus-inspired CSS for Megan Dranow's website */
+
+/* Base styles and reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Bauhaus primary colors */
+    --red: #E53935;
+    --blue: #1E88E5;
+    --yellow: #FDD835;
+    --black: #212121;
+    --white: #FFFFFF;
+    --light-gray: #F5F5F5;
+    --dark-gray: #616161;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: var(--black);
+    background-color: var(--white);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+a {
+    text-decoration: none;
+    color: var(--black);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--red);
+}
+
+ul {
+    list-style: none;
+}
+
+/* Header and Navigation */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 5%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: var(--white);
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--black);
+    background-color: var(--yellow);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0;
+}
+
+nav ul {
+    display: flex;
+    gap: 2rem;
+}
+
+nav ul li a {
+    font-weight: 400;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--red);
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* Main content */
+main {
+    margin-top: 100px;
+}
+
+section {
+    padding: 5rem 5%;
+    position: relative;
+}
+
+section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 4px;
+    bottom: -10px;
+    left: 0;
+    background-color: var(--blue);
+}
+
+/* Hero section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--light-gray);
+    position: relative;
+    overflow: hidden;
+    margin-top: 0;
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 2;
+    max-width: 800px;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: var(--black);
+}
+
+.hero h2 {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    color: var(--dark-gray);
+}
+
+.hero h2::after {
+    display: none;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Geometric shapes for Bauhaus aesthetic */
+.geometric-shape {
+    position: absolute;
+    z-index: 1;
+}
+
+.circle {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: var(--red);
+    opacity: 0.8;
+    top: 20%;
+    left: 10%;
+}
+
+.square {
+    width: 200px;
+    height: 200px;
+    background-color: var(--blue);
+    opacity: 0.8;
+    bottom: 15%;
+    right: 15%;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-bottom: 260px solid var(--yellow);
+    opacity: 0.8;
+    top: 40%;
+    right: 5%;
+}
+
+/* About section */
+.about {
+    background-color: var(--white);
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.about-text p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.about-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 100%;
+}
+
+.color-block {
+    height: 80px;
+    width: 100%;
+}
+
+.red {
+    background-color: var(--red);
+}
+
+.blue {
+    background-color: var(--blue);
+}
+
+.yellow {
+    background-color: var(--yellow);
+}
+
+/* Experience section */
+.experience {
+    background-color: var(--light-gray);
+}
+
+.experience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.experience-item {
+    background-color: var(--white);
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.experience-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background-color: var(--blue);
+}
+
+.experience-item:nth-child(2)::before {
+    background-color: var(--red);
+}
+
+.experience-item:nth-child(3)::before {
+    background-color: var(--yellow);
+}
+
+.experience-item:hover {
+    transform: translateY(-5px);
+}
+
+.experience-header {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--light-gray);
+    padding-bottom: 1rem;
+}
+
+.experience-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.date {
+    color: var(--dark-gray);
+    font-weight: 300;
+}
+
+.experience-item ul li {
+    margin-bottom: 0.8rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.experience-item ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--black);
+}
+
+/* Education section */
+.education {
+    background-color: var(--white);
+}
+
+.education-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.education-item h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--black);
+}
+
+.degree {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+}
+
+.education-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bauhaus-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 100px);
+    grid-template-rows: repeat(2, 100px);
+    gap: 10px;
+}
+
+.grid-item {
+    background-color: var(--light-gray);
+    transition: background-color 0.3s ease;
+}
+
+.grid-item:nth-child(1) {
+    background-color: var(--red);
+}
+
+.grid-item:nth-child(2) {
+    background-color: var(--blue);
+}
+
+.grid-item:nth-child(3) {
+    background-color: var(--yellow);
+}
+
+.grid-item:nth-child(4) {
+    background-color: var(--black);
+}
+
+/* Relocation section */
+.relocation {
+    background-color: var(--light-gray);
+    position: relative;
+    overflow: hidden;
+}
+
+.relocation::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: var(--yellow);
+    opacity: 0.1;
+    bottom: -150px;
+    right: -150px;
+    z-index: 0;
+}
+
+.relocation-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+}
+
+.relocation-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.location-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.location-list li {
+    background-color: var(--white);
+    padding: 1rem;
+    text-align: center;
+    font-weight: 700;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.location-list li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+}
+
+.location-list li:nth-child(1)::before {
+    background-color: var(--red);
+}
+
+.location-list li:nth-child(2)::before {
+    background-color: var(--blue);
+}
+
+.location-list li:nth-child(3)::before {
+    background-color: var(--yellow);
+}
+
+.location-list li:nth-child(4)::before {
+    background-color: var(--black);
+}
+
+/* Contact section */
+.contact {
+    background-color: var(--white);
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid var(--light-gray);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--blue);
+}
+
+.submit-btn {
+    background-color: var(--black);
+    color: var(--white);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: var(--red);
+}
+
+/* Footer */
+footer {
+    background-color: var(--black);
+    color: var(--white);
+    padding: 3rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-link {
+    color: var(--white);
+    font-weight: 700;
+    position: relative;
+}
+
+.social-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--yellow);
+    transition: width 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--white);
+}
+
+.social-link:hover::after {
+    width: 100%;
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+    .hero h1 {
+        font-size: 3rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.8rem;
+    }
+    
+    .about-content,
+    .education-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-visual {
+        flex-direction: row;
+        height: auto;
+    }
+    
+    .color-block {
+        height: 100px;
+        flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem 5%;
+    }
+    
+    .logo {
+        margin-bottom: 1rem;
+    }
+    
+    nav ul {
+        gap: 1rem;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+    
+    section {
+        padding: 3rem 5%;
+    }
+    
+    .experience-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .hero-content {
+        padding: 1.5rem;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.2rem;
+    }
+    
+    section h2 {
+        font-size: 2rem;
+    }
+    
+    .about-visual {
+        flex-direction: column;
+    }
+    
+    .color-block {
+        height: 50px;
+    }
+    
+    .location-list {
+        grid-template-columns: 1fr;
+    }
+}
