@@ -19,7 +19,7 @@
 
 #HeaderSection h1 {
   font-family: 'Montserrat', sans-serif;
-  font-size: 2em;
+  font-size: 2.5em;
   color: black;
   margin: 0;
   font-weight: 400;
