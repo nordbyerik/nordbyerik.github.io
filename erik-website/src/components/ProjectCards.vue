@@ -53,11 +53,6 @@ export default {
           githubLink: "https://safe-mustang-98d.notion.site/Multi-Agent-Risks-1d068745bc888085b062fadcb50a1412"
         },
         {
-          title: "MULTI-AGENT LLM RISKS",
-          description: "Working on a systematic literature review evaluating empirical evidence of risks in multi-agent LLM systems.",
-          githubLink: "https://safe-mustang-98d.notion.site/Multi-Agent-Risks-1d068745bc888085b062fadcb50a1412"
-        },
-        {
           title: "SOCIAL MEDIA TOXICITY",
           description: "Engineered simulations to quantify moderation impact on social media toxicity levels. Extended the CMU CASOS laboratory's simulation framework with new interaction patterns, generating insights for platform governance. Research accepted for poster presentation.",
           githubLink: "https://toxicity-analysis.vercel.app/"
@@ -120,24 +115,24 @@ export default {
   width: 40%;
 }
 
-.accent-1 {
-  background-color: #E53935; /* Red */
-}
+/* --- START: UPDATED STYLES --- */
 
-.accent-2 {
-  background-color: #2196F3; /* Blue */
-}
+/* Accent Colors */
+.accent-1 { background-color: #E53935; } /* Red */
+.accent-2 { background-color: #2196F3; } /* Blue */
+.accent-3 { background-color: #FFC107; } /* Yellow */
+.accent-4 { background-color: #4CAF50; } /* Green (New) */
+.accent-5 { background-color: #9C27B0; } /* Purple (New) */
 
-.accent-3 {
-  background-color: #FFC107; /* Yellow */
-}
-
-.card-1 .card-content {
+/* Card Border Styles (Grouped for repeating pattern) */
+.card-1 .card-content,
+.card-4 .card-content {
   border-left-width: 5px;
   padding-left: 25px;
 }
 
-.card-2 .card-content {
+.card-2 .card-content,
+.card-5 .card-content {
   border-top-width: 5px;
   padding-top: 25px;
 }
@@ -147,17 +142,22 @@ export default {
   padding-right: 25px;
 }
 
-.card-1 .card-accent {
+/* Card Accent Widths (Grouped for repeating pattern) */
+.card-1 .card-accent,
+.card-4 .card-accent {
   width: 50%;
 }
 
-.card-2 .card-accent {
+.card-2 .card-accent,
+.card-5 .card-accent {
   width: 40%;
 }
 
 .card-3 .card-accent {
   width: 60%;
 }
+
+/* --- END: UPDATED STYLES --- */
 
 .card:hover {
   transform: translateY(-5px);
