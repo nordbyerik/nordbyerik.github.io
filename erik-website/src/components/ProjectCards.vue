@@ -72,22 +72,30 @@ export default {
   }
 };
 </script>
-
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
+/* --- START: UPDATED CONTAINER STYLES --- */
 .project-cards-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex; /* CHANGED from 'grid' */
+  flex-wrap: wrap; /* ADDED */
+  justify-content: center; /* ADDED to center the cards */
   gap: 30px;
   width: 100%;
-  max-width: 1200px; /* Slightly wider */
+  max-width: 1200px;
   padding: 0 40px;
-  margin: 80px auto 30px; /* More top margin */
-  justify-content: start;
+  margin: 80px auto 30px;
+  /* REMOVED 'grid-template-columns' and 'justify-content: start' */
 }
+/* --- END: UPDATED CONTAINER STYLES --- */
 
 .card {
+  /* --- ADDED: CARD WIDTH --- */
+  /* We now define the width here instead of in the grid container */
+  /* Calculation for 3 columns: (100% width - 2 * 30px gap) / 3 */
+  width: calc((100% - 60px) / 3);
+  /* --- END: ADDED --- */
+  
   background: #f9f9f9;
   height: 230px;
   position: relative;
@@ -114,8 +122,6 @@ export default {
   height: 8px;
   width: 40%;
 }
-
-/* --- START: UPDATED STYLES --- */
 
 /* Accent Colors */
 .accent-1 { background-color: #E53935; } /* Red */
@@ -156,8 +162,6 @@ export default {
 .card-3 .card-accent {
   width: 60%;
 }
-
-/* --- END: UPDATED STYLES --- */
 
 .card:hover {
   transform: translateY(-5px);
@@ -245,10 +249,15 @@ p.show-all {
   font-weight: 600;
 }
 
-/* Responsive layout for smaller screens */
+@media (max-width: 1024px) {
+  .card {
+    width: calc((100% - 30px) / 2);
+  }
+}
+
 @media (max-width: 768px) {
-  .project-cards-container {
-    grid-template-columns: repeat(1, 1fr);
+  .card {
+    width: 100%;
   }
   
   .card {
@@ -260,10 +269,4 @@ p.show-all {
   }
 }
 
-/* Medium screens */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .project-cards-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 </style>
