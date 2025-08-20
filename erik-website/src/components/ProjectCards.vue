@@ -33,12 +33,27 @@ export default {
       expandedCard: null,
       projects: [
         {
+          title: "LLM STEERING FOR EDUCATIONAL FEEDBACK",
+          description: "Used activation steering technique to drive LLMs to provide encouraging feedback on student essays.",
+          githubLink: "https://bit.ly/ed-tech-paper"
+        },
+        {
+          title: "2x2 MATRIX GAME ENVIRONMENT FOR LLMS",
+          description: "Environment which allows for LLM agents to play 2x2 matrix games and for their activations to be collected for classification.",
+          githubLink: "https://github.com/nordbyerik/gaims"
+        },
+        {
           title: "MODEL SCOPING (Work In Progress)",
           description: "Developed and evaluated methods for scoping language models to specific tasks. This looks to approach safety from a Zero Trust posture to significantly enhance security while largely preserving model functionality. Initially developed as apart of a Hackathon with Apart Research, we are now expanding the concept with their research studio.",
           githubLink: "https://www.lesswrong.com/posts/wvEJ5mRbBEDxuiHrL/scoping-llms"
         },
         {
-          title: "MULTI-AGENT LLM RISKS (Work In Progress)",
+          title: "MULTI-AGENT LLM RISKS",
+          description: "Working on a systematic literature review evaluating empirical evidence of risks in multi-agent LLM systems.",
+          githubLink: "https://safe-mustang-98d.notion.site/Multi-Agent-Risks-1d068745bc888085b062fadcb50a1412"
+        },
+        {
+          title: "MULTI-AGENT LLM RISKS",
           description: "Working on a systematic literature review evaluating empirical evidence of risks in multi-agent LLM systems.",
           githubLink: "https://safe-mustang-98d.notion.site/Multi-Agent-Risks-1d068745bc888085b062fadcb50a1412"
         },
