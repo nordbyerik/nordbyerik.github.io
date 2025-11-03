@@ -138,7 +138,7 @@ export default {
 
       p.setup = () => {
         p.createCanvas(window.innerWidth, window.innerHeight);
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 50; i++) {
           this.flock.push(new Boid());
         }
       };

@@ -12,7 +12,7 @@ export default {
       grid: [],
       cols: 0,
       rows: 0,
-      resolution: 10,
+      resolution: 20,
     };
   },
   mounted() {
