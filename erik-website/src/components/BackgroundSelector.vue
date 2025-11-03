@@ -6,6 +6,10 @@
       <option value="lsystem">L-System</option>
       <option value="gameoflife">Game of Life</option>
       <option value="fractal">Fractal</option>
+      <option value="sandpile">Sandpile Model</option>
+      <option value="neuralca">Neural Cellular Automata</option>
+      <option value="reactiondiffusion">Reaction-Diffusion</option>
+      <option value="voronoi">Voronoi Diagram</option>
     </select>
   </div>
 </template>

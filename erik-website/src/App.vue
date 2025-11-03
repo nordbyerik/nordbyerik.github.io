@@ -23,6 +23,10 @@ import BoidsBackground from "./components/BoidsBackground.vue";
 import LSystemBackground from "./components/LSystemBackground.vue";
 import GameOfLifeBackground from "./components/GameOfLifeBackground.vue";
 import FractalBackground from "./components/FractalBackground.vue";
+import SandpileBackground from "./components/SandpileBackground.vue";
+import NeuralCABackground from "./components/NeuralCABackground.vue";
+import ReactionDiffusionBackground from "./components/ReactionDiffusionBackground.vue";
+import VoronoiBackground from "./components/VoronoiBackground.vue";
 import LogoSection from "./components/LogoSection.vue";
 import ProjectCards from "./components/ProjectCards.vue";
 import BackgroundSelector from "./components/BackgroundSelector.vue";
@@ -36,6 +40,10 @@ export default {
     LSystemBackground,
     GameOfLifeBackground,
     FractalBackground,
+    SandpileBackground,
+    NeuralCABackground,
+    ReactionDiffusionBackground,
+    VoronoiBackground,
     LogoSection,
     ProjectCards,
     BackgroundSelector
@@ -57,6 +65,10 @@ export default {
         lsystem: "LSystemBackground",
         gameoflife: "GameOfLifeBackground",
         fractal: "FractalBackground",
+        sandpile: "SandpileBackground",
+        neuralca: "NeuralCABackground",
+        reactiondiffusion: "ReactionDiffusionBackground",
+        voronoi: "VoronoiBackground",
       };
       this.currentBackground = backgroundMap[backgroundType];
     },
