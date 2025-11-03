@@ -107,22 +107,26 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Changed from center to flex-start */
-  justify-content: flex-start; /* Changed from center to flex-start */
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.75) 55%, rgba(255, 255, 255, 0) 100%); /* Gradient fade for asymmetric layout */
+  align-items: flex-start;
+  justify-content: flex-start;
+  background: linear-gradient(to right, 
+    rgba(255, 255, 255, 0.88) 0%, 
+    rgba(255, 255, 255, 0.85) 40%, 
+    rgba(255, 255, 255, 0.25) 70%, 
+    rgba(255, 255, 255, 0) 100%);
   color: black;
   font-size: 24px;
-  z-index: 1000; /* ensures the overlay is above all other content */
-  overflow-y: auto; /* Allow scrolling if content is too tall */
-  padding: 40px 0 40px 60px; /* Left-aligned padding */
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 50px 0 50px 80px;
 }
 
 .projects-section {
   width: 100%;
-  max-width: 650px; /* Constrain to left side */
+  max-width: 720px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Left-align */
+  align-items: flex-start;
 }
 
 .projects-section h2 {

@@ -76,36 +76,35 @@ export default {
 
 /* --- START: UPDATED CONTAINER STYLES --- */
 .project-cards-container {
-  display: flex;
-  flex-direction: column; /* Single column for vertical stacking */
-  gap: 16px; /* Tighter vertical spacing */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 18px;
   width: 100%;
-  max-width: 600px; /* Narrower for left-side layout */
+  max-width: 720px;
   padding: 0;
-  margin: 40px 0 30px 0; /* Remove auto centering */
+  margin: 35px 0 40px 0;
 }
 /* --- END: UPDATED CONTAINER STYLES --- */
 
 .card {
-  width: 100%; /* Full width in single column */
-  background: rgba(255, 255, 255, 0.90); /* Slightly more opaque for readability */
-  min-height: 160px; /* Flexible height */
+  background: rgba(255, 255, 255, 0.92);
+  min-height: 200px;
   height: auto;
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .card-content {
   position: relative;
-  padding: 16px 18px; /* Reduced padding for more compact design */
+  padding: 20px 22px;
   display: flex;
   flex-direction: column;
   height: 100%;
-  border: 1.5px solid black; /* Slightly thinner border for elegance */
+  border: 1.5px solid black;
   box-sizing: border-box;
 }
 
@@ -113,8 +112,8 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  height: 4px; /* Reduced from 8px for subtlety */
-  width: 40%;
+  height: 5px;
+  width: 45%;
 }
 
 /* Accent Colors - Bauhaus Primary Colors Only */
@@ -145,67 +144,53 @@ export default {
 /* Card Accent Widths (Grouped for repeating pattern) */
 .card-1 .card-accent,
 .card-4 .card-accent {
-  width: 35%; /* Reduced from 50% for subtlety */
+  width: 45%;
 }
 
 .card-2 .card-accent,
 .card-5 .card-accent {
-  width: 30%; /* Reduced from 40% */
+  width: 38%;
 }
 
 .card-3 .card-accent {
-  width: 40%; /* Reduced from 60% */
-}
-
-/* Staggered positioning for visual interest */
-.card:nth-child(odd) {
-  margin-left: 0;
-}
-
-.card:nth-child(even) {
-  margin-left: 40px; /* Offset every other card */
-}
-
-.card:nth-child(3) {
-  margin-left: 20px; /* Different offset for variety */
+  width: 50%;
 }
 
 /* Subtle hover effect for interactivity */
 .card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  background: rgba(255, 255, 255, 0.95);
-  transform: translateX(-4px); /* Slight pull on hover */
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.96);
+  transform: translateY(-2px);
 }
 
 .card.expanded {
-  min-height: 180px;
+  min-height: 220px;
   z-index: 10;
-  margin-left: 0 !important; /* Reset stagger when expanded */
 }
 
 h3 {
-  margin-top: 10px; /* Reduced from 15px */
+  margin-top: 12px;
   color: #000;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 14px; /* Reduced from 16px for more compact look */
-  letter-spacing: 0.8px; /* Slightly tighter */
+  font-size: 13px;
+  letter-spacing: 0.9px;
   text-transform: uppercase;
   cursor: pointer;
-  margin-bottom: 6px;
-  line-height: 1.3;
+  margin-bottom: 8px;
+  line-height: 1.35;
 }
 
 p {
   flex-grow: 1;
-  margin: 8px 0 10px 0; /* Reduced margins */
+  margin: 10px 0 12px 0;
   color: #333;
   font-family: 'Montserrat', sans-serif;
-  font-size: 12px; /* Reduced from 13px */
-  line-height: 1.5; /* Slightly increased for readability */
+  font-size: 12px;
+  line-height: 1.55;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Reduced from 4 for more compact cards */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   cursor: pointer;
   text-align: left;
@@ -250,36 +235,25 @@ p.show-all {
 
 @media (max-width: 1024px) {
   .project-cards-container {
-    max-width: 500px;
-  }
-  
-  .card:nth-child(even) {
-    margin-left: 30px;
-  }
-  
-  .card:nth-child(3) {
-    margin-left: 15px;
+    max-width: 600px;
+    gap: 16px;
   }
 }
 
 @media (max-width: 768px) {
   .project-cards-container {
+    grid-template-columns: 1fr;
     max-width: 100%;
-    padding: 0 20px;
-  }
-  
-  .card:nth-child(odd),
-  .card:nth-child(even),
-  .card:nth-child(3) {
-    margin-left: 0; /* Remove stagger on mobile */
+    padding: 0;
+    gap: 14px;
   }
   
   .card {
-    min-height: 140px;
+    min-height: 180px;
   }
   
   .card.expanded {
-    min-height: 160px;
+    min-height: 200px;
   }
 }
 
