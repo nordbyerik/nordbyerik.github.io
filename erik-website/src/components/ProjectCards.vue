@@ -13,7 +13,7 @@
         <h3>{{ project.title }}</h3>
         <p :class="{'show-all': expandedCard === index}">{{ project.description }}</p>
         <a :href="project.githubLink" target="_blank" class="github-link" @click.stop>
-          <span class="github-circle"></span>
+          <span class="github-square"></span>
           <span>WEBSITE</span>
         </a>
         <div class="expand-indicator" v-if="project.description.length > 100">
@@ -73,7 +73,6 @@ export default {
 };
 </script>
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
 /* --- START: UPDATED CONTAINER STYLES --- */
 .project-cards-container {
@@ -96,10 +95,9 @@ export default {
   width: calc((100% - 60px) / 3);
   /* --- END: ADDED --- */
   
-  background: #f9f9f9;
+  background: white;
   height: 230px;
   position: relative;
-  transition: transform 0.3s ease, height 0.3s ease;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -194,7 +192,6 @@ p {
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  transition: all 0.3s ease;
   cursor: pointer;
   text-align: left;
 }
@@ -210,16 +207,15 @@ p.show-all {
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   color: #000;
   text-transform: uppercase;
   letter-spacing: 1px;
-  transition: all 0.3s ease;
   align-self: flex-start;
   margin-top: auto;
 }
 
-.github-circle {
+.github-square {
   display: inline-block;
   width: 16px;
   height: 16px;
@@ -234,7 +230,7 @@ p.show-all {
   margin-top: 10px;
   font-family: 'Montserrat', sans-serif;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 @media (max-width: 1024px) {
