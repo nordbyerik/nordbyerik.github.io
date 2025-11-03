@@ -11,28 +11,54 @@
         <ProjectCards />
       </div>
     </div>
-    <LorenzAttractor class="attractor" />
+    <BackgroundSelector @background-changed="changeBackground" />
+    <component :is="currentBackground" class="attractor" :key="currentBackground" />
   </div>
 </template>
 
 <script>
 import HeaderSection from "./components/HeaderSection.vue";
 import LorenzAttractor from "./components/LorenzAttractor.vue";
+import BoidsBackground from "./components/BoidsBackground.vue";
+import LSystemBackground from "./components/LSystemBackground.vue";
+import GameOfLifeBackground from "./components/GameOfLifeBackground.vue";
+import FractalBackground from "./components/FractalBackground.vue";
 import LogoSection from "./components/LogoSection.vue";
 import ProjectCards from "./components/ProjectCards.vue";
+import BackgroundSelector from "./components/BackgroundSelector.vue";
 
 export default {
   name: "App",
   components: {
     HeaderSection,
     LorenzAttractor,
+    BoidsBackground,
+    LSystemBackground,
+    GameOfLifeBackground,
+    FractalBackground,
     LogoSection,
-    ProjectCards
+    ProjectCards,
+    BackgroundSelector
+  },
+  data() {
+    return {
+      currentBackground: "LorenzAttractor",
+    };
   },
   methods: {
     scrollToSection(id) {
       const section = document.getElementById(id);
       section.scrollIntoView({ behavior: "smooth" });
+    },
+    changeBackground(backgroundType) {
+      const backgroundMap = {
+        lorenz: "LorenzAttractor",
+        boids: "BoidsBackground",
+        lsystem: "LSystemBackground",
+        gameoflife: "GameOfLifeBackground",
+        fractal: "FractalBackground",
+      };
+      this.currentBackground = backgroundMap[backgroundType];
     },
   },
 };
