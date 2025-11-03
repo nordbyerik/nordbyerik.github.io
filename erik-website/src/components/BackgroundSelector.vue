@@ -35,25 +35,28 @@ export default {
 }
 
 .background-dropdown {
-  padding: 10px 15px;
+  padding: 12px 16px;
   font-size: 14px;
   font-family: 'Montserrat', sans-serif;
-  border: 2px solid rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.9);
-  color: #333;
+  font-weight: 600;
+  border: 3px solid #000;
+  border-radius: 0;
+  background-color: #fff;
+  color: #000;
   cursor: pointer;
   outline: none;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .background-dropdown:hover {
-  background-color: rgba(255, 255, 255, 1);
-  border-color: rgba(0, 0, 0, 0.5);
+  background-color: #000;
+  color: #fff;
 }
 
 .background-dropdown:focus {
-  border-color: rgba(0, 0, 0, 0.7);
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  border-color: #000;
+  box-shadow: 4px 4px 0 0 #000;
 }
 </style>

@@ -77,25 +77,17 @@ export default {
 
 /* --- START: UPDATED CONTAINER STYLES --- */
 .project-cards-container {
-  display: flex; /* CHANGED from 'grid' */
-  flex-wrap: wrap; /* ADDED */
-  justify-content: center; /* ADDED to center the cards */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   width: 100%;
   max-width: 1200px;
   padding: 0 40px;
   margin: 80px auto 30px;
-  /* REMOVED 'grid-template-columns' and 'justify-content: start' */
 }
 /* --- END: UPDATED CONTAINER STYLES --- */
 
 .card {
-  /* --- ADDED: CARD WIDTH --- */
-  /* We now define the width here instead of in the grid container */
-  /* Calculation for 3 columns: (100% width - 2 * 30px gap) / 3 */
-  width: calc((100% - 60px) / 3);
-  /* --- END: ADDED --- */
-  
   background: #f9f9f9;
   height: 230px;
   position: relative;
@@ -250,14 +242,14 @@ p.show-all {
 }
 
 @media (max-width: 1024px) {
-  .card {
-    width: calc((100% - 30px) / 2);
+  .project-cards-container {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .card {
-    width: 100%;
+  .project-cards-container {
+    grid-template-columns: 1fr;
   }
   
   .card {
