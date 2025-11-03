@@ -109,7 +109,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.95); /* Bauhaus white background */
+  background-color: rgba(255, 255, 255, 0.55); /* Further reduced to showcase background */
   color: black;
   font-size: 24px;
   z-index: 1000; /* ensures the overlay is above all other content */

@@ -79,11 +79,11 @@ export default {
   display: flex; /* CHANGED from 'grid' */
   flex-wrap: wrap; /* ADDED */
   justify-content: center; /* ADDED to center the cards */
-  gap: 30px;
+  gap: 20px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 900px; /* Reduced from 1200px for more compact layout */
   padding: 0 40px;
-  margin: 80px auto 30px;
+  margin: 60px auto 30px; /* Reduced top margin from 80px */
   /* REMOVED 'grid-template-columns' and 'justify-content: start' */
 }
 /* --- END: UPDATED CONTAINER STYLES --- */
@@ -91,25 +91,27 @@ export default {
 .card {
   /* --- ADDED: CARD WIDTH --- */
   /* We now define the width here instead of in the grid container */
-  /* Calculation for 3 columns: (100% width - 2 * 30px gap) / 3 */
-  width: calc((100% - 60px) / 3);
+  /* Calculation for 2 columns with tighter layout */
+  width: calc((100% - 20px) / 2);
   /* --- END: ADDED --- */
   
-  background: white;
-  height: 230px;
+  background: rgba(255, 255, 255, 0.85); /* More transparent to blend with background */
+  height: 200px; /* Reduced from 230px */
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
 }
 
 .card-content {
   position: relative;
-  padding: 20px;
+  padding: 16px 18px; /* Reduced padding for more compact design */
   display: flex;
   flex-direction: column;
   height: 100%;
-  border: 2px solid black;
+  border: 1.5px solid black; /* Slightly thinner border for elegance */
   box-sizing: border-box;
 }
 
@@ -117,7 +119,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  height: 8px;
+  height: 4px; /* Reduced from 8px for subtlety */
   width: 40%;
 }
 
@@ -131,66 +133,71 @@ export default {
 /* Card Border Styles (Grouped for repeating pattern) */
 .card-1 .card-content,
 .card-4 .card-content {
-  border-left-width: 5px;
-  padding-left: 25px;
+  border-left-width: 3px; /* Reduced from 5px */
+  padding-left: 20px; /* Reduced from 25px */
 }
 
 .card-2 .card-content,
 .card-5 .card-content {
-  border-top-width: 5px;
-  padding-top: 25px;
+  border-top-width: 3px; /* Reduced from 5px */
+  padding-top: 20px; /* Reduced from 25px */
 }
 
 .card-3 .card-content {
-  border-right-width: 5px;
-  padding-right: 25px;
+  border-right-width: 3px; /* Reduced from 5px */
+  padding-right: 20px; /* Reduced from 25px */
 }
 
 /* Card Accent Widths (Grouped for repeating pattern) */
 .card-1 .card-accent,
 .card-4 .card-accent {
-  width: 50%;
+  width: 35%; /* Reduced from 50% for subtlety */
 }
 
 .card-2 .card-accent,
 .card-5 .card-accent {
-  width: 40%;
+  width: 30%; /* Reduced from 40% */
 }
 
 .card-3 .card-accent {
-  width: 60%;
+  width: 40%; /* Reduced from 60% */
 }
 
-/* Bauhaus: No decorative hover effects */
+/* Subtle hover effect for interactivity */
+.card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.90);
+}
 
 .card.expanded {
   height: auto;
-  min-height: 250px;
+  min-height: 220px; /* Reduced from 250px */
   z-index: 10;
 }
 
 h3 {
-  margin-top: 15px;
+  margin-top: 10px; /* Reduced from 15px */
   color: #000;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 1px;
+  font-size: 14px; /* Reduced from 16px for more compact look */
+  letter-spacing: 0.8px; /* Slightly tighter */
   text-transform: uppercase;
   cursor: pointer;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
+  line-height: 1.3;
 }
 
 p {
   flex-grow: 1;
-  margin: 15px 0;
+  margin: 8px 0 10px 0; /* Reduced margins */
   color: #333;
   font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-  line-height: 1.4;
+  font-size: 12px; /* Reduced from 13px */
+  line-height: 1.5; /* Slightly increased for readability */
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3; /* Reduced from 4 for more compact cards */
   -webkit-box-orient: vertical;
   cursor: pointer;
   text-align: left;
@@ -206,21 +213,21 @@ p.show-all {
   align-items: center;
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
+  font-size: 11px; /* Reduced from 12px */
   font-weight: 700;
   color: #000;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px; /* Slightly tighter */
   align-self: flex-start;
   margin-top: auto;
 }
 
 .github-square {
   display: inline-block;
-  width: 16px;
-  height: 16px;
+  width: 12px; /* Reduced from 16px */
+  height: 12px; /* Reduced from 16px */
   background-color: #000;
-  margin-right: 8px;
+  margin-right: 6px; /* Reduced from 8px */
 }
 
 .expand-indicator {
@@ -235,7 +242,7 @@ p.show-all {
 
 @media (max-width: 1024px) {
   .card {
-    width: calc((100% - 30px) / 2);
+    width: calc((100% - 20px) / 2); /* Maintain 2-column layout */
   }
 }
 
@@ -245,11 +252,11 @@ p.show-all {
   }
   
   .card {
-    height: 220px;
+    height: 190px; /* Reduced from 220px */
   }
   
   .card.expanded {
-    min-height: 220px;
+    min-height: 200px; /* Reduced from 220px */
   }
 }
 
