@@ -47,8 +47,8 @@ export default {
         p.background(255);
         p.resetMatrix();
         p.translate(p.width / 2, p.height);
-        p.stroke(0, 100);
-        p.strokeWeight(1);
+        p.stroke(0);
+        p.strokeWeight(3);
         for (let i = 0; i < sentence.length; i++) {
           let current = sentence.charAt(i);
 
