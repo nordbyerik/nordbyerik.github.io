@@ -76,33 +76,27 @@ export default {
 
 /* --- START: UPDATED CONTAINER STYLES --- */
 .project-cards-container {
-  display: flex; /* CHANGED from 'grid' */
-  flex-wrap: wrap; /* ADDED */
-  justify-content: center; /* ADDED to center the cards */
-  gap: 20px;
+  display: flex;
+  flex-direction: column; /* Single column for vertical stacking */
+  gap: 16px; /* Tighter vertical spacing */
   width: 100%;
-  max-width: 900px; /* Reduced from 1200px for more compact layout */
-  padding: 0 40px;
-  margin: 60px auto 30px; /* Reduced top margin from 80px */
-  /* REMOVED 'grid-template-columns' and 'justify-content: start' */
+  max-width: 600px; /* Narrower for left-side layout */
+  padding: 0;
+  margin: 40px 0 30px 0; /* Remove auto centering */
 }
 /* --- END: UPDATED CONTAINER STYLES --- */
 
 .card {
-  /* --- ADDED: CARD WIDTH --- */
-  /* We now define the width here instead of in the grid container */
-  /* Calculation for 2 columns with tighter layout */
-  width: calc((100% - 20px) / 2);
-  /* --- END: ADDED --- */
-  
-  background: rgba(255, 255, 255, 0.85); /* More transparent to blend with background */
-  height: 200px; /* Reduced from 230px */
+  width: 100%; /* Full width in single column */
+  background: rgba(255, 255, 255, 0.90); /* Slightly more opaque for readability */
+  min-height: 160px; /* Flexible height */
+  height: auto;
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .card-content {
@@ -163,16 +157,30 @@ export default {
   width: 40%; /* Reduced from 60% */
 }
 
+/* Staggered positioning for visual interest */
+.card:nth-child(odd) {
+  margin-left: 0;
+}
+
+.card:nth-child(even) {
+  margin-left: 40px; /* Offset every other card */
+}
+
+.card:nth-child(3) {
+  margin-left: 20px; /* Different offset for variety */
+}
+
 /* Subtle hover effect for interactivity */
 .card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-  background: rgba(255, 255, 255, 0.90);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateX(-4px); /* Slight pull on hover */
 }
 
 .card.expanded {
-  height: auto;
-  min-height: 220px; /* Reduced from 250px */
+  min-height: 180px;
   z-index: 10;
+  margin-left: 0 !important; /* Reset stagger when expanded */
 }
 
 h3 {
@@ -241,22 +249,37 @@ p.show-all {
 }
 
 @media (max-width: 1024px) {
-  .card {
-    width: calc((100% - 20px) / 2); /* Maintain 2-column layout */
+  .project-cards-container {
+    max-width: 500px;
+  }
+  
+  .card:nth-child(even) {
+    margin-left: 30px;
+  }
+  
+  .card:nth-child(3) {
+    margin-left: 15px;
   }
 }
 
 @media (max-width: 768px) {
-  .card {
-    width: 100%;
+  .project-cards-container {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+  
+  .card:nth-child(odd),
+  .card:nth-child(even),
+  .card:nth-child(3) {
+    margin-left: 0; /* Remove stagger on mobile */
   }
   
   .card {
-    height: 190px; /* Reduced from 220px */
+    min-height: 140px;
   }
   
   .card.expanded {
-    min-height: 200px; /* Reduced from 220px */
+    min-height: 160px;
   }
 }
 

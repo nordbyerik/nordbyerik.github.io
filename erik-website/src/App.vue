@@ -107,24 +107,39 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(255, 255, 255, 0.55); /* Further reduced to showcase background */
+  align-items: flex-start; /* Changed from center to flex-start */
+  justify-content: flex-start; /* Changed from center to flex-start */
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.75) 55%, rgba(255, 255, 255, 0) 100%); /* Gradient fade for asymmetric layout */
   color: black;
   font-size: 24px;
   z-index: 1000; /* ensures the overlay is above all other content */
   overflow-y: auto; /* Allow scrolling if content is too tall */
-  padding: 20px 0;
+  padding: 40px 0 40px 60px; /* Left-aligned padding */
 }
 
 .projects-section {
   width: 100%;
+  max-width: 650px; /* Constrain to left side */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Left-align */
 }
 
 .projects-section h2 {
   display: none; /* Hide the heading as it's not in the reference image */
+}
+
+@media (max-width: 768px) {
+  .overlay {
+    padding: 30px 20px;
+    background: rgba(255, 255, 255, 0.70); /* More uniform on mobile */
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .projects-section {
+    max-width: 100%;
+    align-items: center;
+  }
 }
 </style>
