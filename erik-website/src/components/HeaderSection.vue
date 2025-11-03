@@ -6,9 +6,6 @@
 </template>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
 #HeaderSection {
   display: flex;
   flex-direction: column;
@@ -22,7 +19,7 @@
   font-size: 2.5em;
   color: black;
   margin: 0;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 #HeaderSection p {
@@ -30,6 +27,6 @@
   font-size: 1.2em;
   color: black;
   font-weight: 400;
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Montserrat', sans-serif;
 }
 </style>
