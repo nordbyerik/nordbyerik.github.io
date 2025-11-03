@@ -65,8 +65,7 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 html,
 body {
   margin: 0;
@@ -110,7 +109,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(242, 219, 192, 0.884); /* Lighter transparent overlay */
+  background-color: rgba(255, 255, 255, 0.95); /* Bauhaus white background */
   color: black;
   font-size: 24px;
   z-index: 1000; /* ensures the overlay is above all other content */

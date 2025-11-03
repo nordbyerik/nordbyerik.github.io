@@ -38,22 +38,10 @@ export default {
   padding: 10px 15px;
   font-size: 14px;
   font-family: 'Montserrat', sans-serif;
-  border: 2px solid rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.9);
-  color: #333;
+  border: 2px solid black;
+  background-color: white;
+  color: black;
   cursor: pointer;
   outline: none;
-  transition: all 0.3s ease;
-}
-
-.background-dropdown:hover {
-  background-color: rgba(255, 255, 255, 1);
-  border-color: rgba(0, 0, 0, 0.5);
-}
-
-.background-dropdown:focus {
-  border-color: rgba(0, 0, 0, 0.7);
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
 }
 </style>

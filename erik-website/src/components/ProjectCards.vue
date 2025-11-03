@@ -123,12 +123,12 @@ export default {
   width: 40%;
 }
 
-/* Accent Colors */
-.accent-1 { background-color: #E53935; } /* Red */
-.accent-2 { background-color: #2196F3; } /* Blue */
-.accent-3 { background-color: #FFC107; } /* Yellow */
-.accent-4 { background-color: #4CAF50; } /* Green (New) */
-.accent-5 { background-color: #9C27B0; } /* Purple (New) */
+/* Accent Colors - Bauhaus Primary Colors Only */
+.accent-1 { background-color: #DE0000; } /* Bauhaus Red */
+.accent-2 { background-color: #004D9D; } /* Bauhaus Blue */
+.accent-3 { background-color: #FFCC00; } /* Bauhaus Yellow */
+.accent-4 { background-color: #DE0000; } /* Bauhaus Red */
+.accent-5 { background-color: #004D9D; } /* Bauhaus Blue */
 
 /* Card Border Styles (Grouped for repeating pattern) */
 .card-1 .card-content,
@@ -163,9 +163,7 @@ export default {
   width: 60%;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-}
+/* Bauhaus: No decorative hover effects */
 
 .card.expanded {
   height: auto;
@@ -225,18 +223,8 @@ p.show-all {
   display: inline-block;
   width: 16px;
   height: 16px;
-  border-radius: 50%;
   background-color: #000;
   margin-right: 8px;
-  transition: all 0.3s ease;
-}
-
-.github-link:hover {
-  color: #555;
-}
-
-.github-link:hover .github-circle {
-  background-color: #555;
 }
 
 .expand-indicator {
