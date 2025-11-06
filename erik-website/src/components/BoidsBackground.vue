@@ -17,6 +17,52 @@ export default {
   },
   methods: {
     sketch(p) {
+      // Spatial hash grid for efficient neighbor queries
+      class SpatialHash {
+        constructor(cellSize) {
+          this.cellSize = cellSize;
+          this.grid = new Map();
+        }
+
+        clear() {
+          this.grid.clear();
+        }
+
+        // Get grid cell key for a position
+        getKey(x, y) {
+          const cellX = Math.floor(x / this.cellSize);
+          const cellY = Math.floor(y / this.cellSize);
+          return `${cellX},${cellY}`;
+        }
+
+        // Insert a boid into the grid
+        insert(boid) {
+          const key = this.getKey(boid.position.x, boid.position.y);
+          if (!this.grid.has(key)) {
+            this.grid.set(key, []);
+          }
+          this.grid.get(key).push(boid);
+        }
+
+        // Get all boids in the same cell and neighboring cells
+        getNearby(x, y) {
+          const nearby = [];
+          const cellX = Math.floor(x / this.cellSize);
+          const cellY = Math.floor(y / this.cellSize);
+
+          // Check 9 cells (current + 8 neighbors)
+          for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+              const key = `${cellX + i},${cellY + j}`;
+              if (this.grid.has(key)) {
+                nearby.push(...this.grid.get(key));
+              }
+            }
+          }
+          return nearby;
+        }
+      }
+
       class Boid {
         constructor() {
           this.position = p.createVector(p.random(p.width), p.random(p.height));
@@ -136,10 +182,17 @@ export default {
         }
       }
 
+      let spatialHash;
+
       p.setup = () => {
         p.createCanvas(window.innerWidth, window.innerHeight);
-        // Reduced from 100 to 50 boids for better performance (O(n²) complexity)
-        for (let i = 0; i < 50; i++) {
+
+        // Cell size = max perception radius (50px) to ensure we check all relevant neighbors
+        spatialHash = new SpatialHash(50);
+
+        // 100 boids with spatial partitioning = much faster than 50 without!
+        // Spatial hash reduces complexity from O(n²) to O(n)
+        for (let i = 0; i < 100; i++) {
           this.flock.push(new Boid());
         }
       };
@@ -147,9 +200,20 @@ export default {
       p.draw = () => {
         p.background(255);
 
+        // Rebuild spatial hash each frame
+        spatialHash.clear();
+        for (let boid of this.flock) {
+          spatialHash.insert(boid);
+        }
+
+        // Update boids using only nearby neighbors
         for (let boid of this.flock) {
           boid.edges();
-          boid.flock(this.flock);
+
+          // Get only nearby boids instead of all boids (huge performance win!)
+          const nearbyBoids = spatialHash.getNearby(boid.position.x, boid.position.y);
+          boid.flock(nearbyBoids);
+
           boid.update();
           boid.show();
         }
