@@ -43,6 +43,9 @@ import AntColonyBackground from "./components/AntColonyBackground.vue";
 import ReactionDiffusionBackground from "./components/ReactionDiffusionBackground.vue";
 import VoronoiBackground from "./components/VoronoiBackground.vue";
 import DifferentialGrowthBackground from "./components/DifferentialGrowthBackground.vue";
+import SandpileBackground from "./components/SandpileBackground.vue";
+import PrisonersDilemmaBackground from "./components/PrisonersDilemmaBackground.vue";
+import RockPaperScissorsBackground from "./components/RockPaperScissorsBackground.vue";
 import LogoSection from "./components/LogoSection.vue";
 import ProjectCards from "./components/ProjectCards.vue";
 import BackgroundSelector from "./components/BackgroundSelector.vue";
@@ -61,6 +64,9 @@ export default {
     ReactionDiffusionBackground,
     VoronoiBackground,
     DifferentialGrowthBackground,
+    SandpileBackground,
+    PrisonersDilemmaBackground,
+    RockPaperScissorsBackground,
     LogoSection,
     ProjectCards,
     BackgroundSelector
@@ -88,6 +94,9 @@ export default {
         reactiondiffusion: "ReactionDiffusionBackground",
         voronoi: "VoronoiBackground",
         differentialgrowth: "DifferentialGrowthBackground",
+        sandpile: "SandpileBackground",
+        prisonersdilemma: "PrisonersDilemmaBackground",
+        rockpaperscissors: "RockPaperScissorsBackground",
       };
       this.currentBackground = backgroundMap[backgroundType];
     },
