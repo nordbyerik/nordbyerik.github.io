@@ -14,13 +14,15 @@
     </button>
 
     <div class="overlay" :class="{ 'compact': isCompact }">
-      <div>
-        <HeaderSection />
+      <div class="content-wrapper" :class="{ 'compact': isCompact }">
+        <div>
+          <HeaderSection />
+        </div>
+        <div>
+          <LogoSection />
+        </div>
       </div>
-      <div>
-        <LogoSection />
-      </div>
-      <div class="projects-section">
+      <div class="projects-section" v-show="!isCompact">
         <ProjectCards />
       </div>
     </div>
@@ -153,6 +155,18 @@ body {
   font-size: 0.85em;
 }
 
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-wrapper.compact {
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
 .projects-section {
   width: 100%;
   display: flex;
@@ -168,8 +182,8 @@ body {
 .bauhaus-toggle {
   position: fixed;
   top: 20px;
-  right: 20px;
-  z-index: 2000;
+  right: 90px; /* Position to the left of the background selector */
+  z-index: 3000; /* Higher than background selector */
   width: 60px;
   height: 60px;
   border: none;
