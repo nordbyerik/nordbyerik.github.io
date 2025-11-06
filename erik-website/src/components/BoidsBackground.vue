@@ -138,7 +138,8 @@ export default {
 
       p.setup = () => {
         p.createCanvas(window.innerWidth, window.innerHeight);
-        for (let i = 0; i < 100; i++) {
+        // Reduced from 100 to 50 boids for better performance (O(n²) complexity)
+        for (let i = 0; i < 50; i++) {
           this.flock.push(new Boid());
         }
       };

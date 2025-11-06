@@ -25,8 +25,10 @@ export default {
       let gridWidth, gridHeight;
 
       p.setup = () => {
-        p.createCanvas(window.innerWidth, window.innerHeight);
+        const scale = 0.5; // Render at half resolution for performance
+        p.createCanvas(window.innerWidth * scale, window.innerHeight * scale);
         p.pixelDensity(1);
+        p.frameRate(20); // Limit frame rate for better performance
 
         gridWidth = p.floor(p.width / 2);
         gridHeight = p.floor(p.height / 2);
@@ -137,5 +139,11 @@ export default {
 div {
   width: 100%;
   height: 100%;
+}
+
+/* Scale canvas to full size for performance optimization */
+div canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 </style>
