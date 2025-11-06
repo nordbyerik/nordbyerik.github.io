@@ -11,6 +11,9 @@
       <option value="reactiondiffusion">Reaction-Diffusion</option>
       <option value="voronoi">Voronoi Cells</option>
       <option value="differentialgrowth">Differential Growth</option>
+      <option value="sandpile">Sandpile</option>
+      <option value="prisonersdilemma">Prisoner's Dilemma</option>
+      <option value="rockpaperscissors">Rock-Paper-Scissors</option>
     </select>
   </div>
 </template>

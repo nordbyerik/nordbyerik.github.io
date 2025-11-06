@@ -1,17 +1,22 @@
 <template>
   <div id="app">
     <!-- Toggle Button with Bauhaus geometric design -->
-    <button
-      @click="toggleCompactMode"
-      class="bauhaus-toggle"
-      :class="{ 'compact': isCompact }"
-      :title="isCompact ? 'Expand content' : 'Minimize to reveal background'">
-      <div class="toggle-icon">
-        <div class="square"></div>
-        <div class="circle"></div>
-        <div class="triangle"></div>
+    <div class="toggle-container">
+      <button
+        @click="toggleCompactMode"
+        class="bauhaus-toggle"
+        :class="{ 'compact': isCompact }"
+        :title="isCompact ? 'Expand content' : 'Minimize to reveal background'">
+        <div class="toggle-icon">
+          <div class="square"></div>
+          <div class="circle"></div>
+          <div class="triangle"></div>
+        </div>
+      </button>
+      <div class="toggle-caption" :class="{ 'compact': isCompact }" @click="toggleCompactMode">
+        {{ isCompact ? 'EXPAND' : 'EXPLORE BACKGROUNDS' }}
       </div>
-    </button>
+    </div>
 
     <div class="overlay" :class="{ 'compact': isCompact }">
       <div class="content-wrapper" :class="{ 'compact': isCompact }">
@@ -26,7 +31,7 @@
         <ProjectCards />
       </div>
     </div>
-    <BackgroundSelector @background-changed="changeBackground" />
+    <BackgroundSelector v-show="isCompact" @background-changed="changeBackground" />
     <component :is="currentBackground" class="attractor" :key="currentBackground" />
   </div>
 </template>
@@ -43,6 +48,9 @@ import AntColonyBackground from "./components/AntColonyBackground.vue";
 import ReactionDiffusionBackground from "./components/ReactionDiffusionBackground.vue";
 import VoronoiBackground from "./components/VoronoiBackground.vue";
 import DifferentialGrowthBackground from "./components/DifferentialGrowthBackground.vue";
+import SandpileBackground from "./components/SandpileBackground.vue";
+import PrisonersDilemmaBackground from "./components/PrisonersDilemmaBackground.vue";
+import RockPaperScissorsBackground from "./components/RockPaperScissorsBackground.vue";
 import LogoSection from "./components/LogoSection.vue";
 import ProjectCards from "./components/ProjectCards.vue";
 import BackgroundSelector from "./components/BackgroundSelector.vue";
@@ -61,6 +69,9 @@ export default {
     ReactionDiffusionBackground,
     VoronoiBackground,
     DifferentialGrowthBackground,
+    SandpileBackground,
+    PrisonersDilemmaBackground,
+    RockPaperScissorsBackground,
     LogoSection,
     ProjectCards,
     BackgroundSelector
@@ -88,6 +99,9 @@ export default {
         reactiondiffusion: "ReactionDiffusionBackground",
         voronoi: "VoronoiBackground",
         differentialgrowth: "DifferentialGrowthBackground",
+        sandpile: "SandpileBackground",
+        prisonersdilemma: "PrisonersDilemmaBackground",
+        rockpaperscissors: "RockPaperScissorsBackground",
       };
       this.currentBackground = backgroundMap[backgroundType];
     },
@@ -193,13 +207,21 @@ body {
   display: none; /* Hide the heading as it's not in the reference image */
 }
 
-/* Bauhaus Toggle Button */
-.bauhaus-toggle {
+/* Bauhaus Toggle Container */
+.toggle-container {
   position: fixed;
   bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3000; /* Higher than background selector */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Bauhaus Toggle Button */
+.bauhaus-toggle {
   width: 80px;
   height: 80px;
   border: none;
@@ -215,12 +237,12 @@ body {
 }
 
 .bauhaus-toggle:hover {
-  transform: translateX(-50%) scale(1.15);
+  transform: scale(1.15);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .bauhaus-toggle:active {
-  transform: translateX(-50%) scale(0.95);
+  transform: scale(0.95);
 }
 
 .toggle-icon {
@@ -279,5 +301,33 @@ body {
 .bauhaus-toggle.compact .triangle {
   transform: rotate(180deg);
   border-bottom-color: #FFD100;
+}
+
+/* Bauhaus Caption */
+.toggle-caption {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: black;
+  background: white;
+  padding: 8px 16px;
+  border: 2px solid black;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-caption:hover {
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
+  transform: translate(-2px, -2px);
+}
+
+.toggle-caption.compact {
+  font-size: 10px;
+  padding: 6px 12px;
 }
 </style>

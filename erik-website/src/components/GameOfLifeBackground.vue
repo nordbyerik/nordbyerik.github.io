@@ -10,9 +10,10 @@ export default {
   data() {
     return {
       grid: [],
+      next: [], // Pre-allocate next grid to avoid creating new arrays each frame
       cols: 0,
       rows: 0,
-      resolution: 10,
+      resolution: 15, // Increased from 10 to 15 for ~44% fewer cells
     };
   },
   mounted() {
@@ -22,10 +23,16 @@ export default {
     sketch(p) {
       p.setup = () => {
         p.createCanvas(window.innerWidth, window.innerHeight);
+        p.frameRate(20); // Game of Life doesn't need 60fps
+
         this.cols = p.floor(p.width / this.resolution);
         this.rows = p.floor(p.height / this.resolution);
 
+        // Pre-allocate both grids to avoid creating new arrays each frame
         this.grid = this.make2DArray(this.cols, this.rows);
+        this.next = this.make2DArray(this.cols, this.rows);
+
+        // Random initialization
         for (let i = 0; i < this.cols; i++) {
           for (let j = 0; j < this.rows; j++) {
             this.grid[i][j] = p.floor(p.random(2));
@@ -36,38 +43,41 @@ export default {
       p.draw = () => {
         p.background(255);
 
+        // Optimization: Only draw live cells (background is already white)
+        p.fill(0);
+        p.stroke(0);
+        p.noStroke(); // Faster without individual cell borders
         for (let i = 0; i < this.cols; i++) {
           for (let j = 0; j < this.rows; j++) {
-            let x = i * this.resolution;
-            let y = j * this.resolution;
             if (this.grid[i][j] == 1) {
-              p.fill(0);
-              p.stroke(0);
-              p.rect(x, y, this.resolution - 1, this.resolution - 1);
+              let x = i * this.resolution;
+              let y = j * this.resolution;
+              p.rect(x, y, this.resolution, this.resolution);
             }
           }
         }
 
-        let next = this.make2DArray(this.cols, this.rows);
-
-        // Compute next based on grid
+        // Compute next generation using pre-allocated array
         for (let i = 0; i < this.cols; i++) {
           for (let j = 0; j < this.rows; j++) {
             let state = this.grid[i][j];
-            // Count live neighbors
             let neighbors = this.countNeighbors(this.grid, i, j);
 
+            // Game of Life rules
             if (state == 0 && neighbors == 3) {
-              next[i][j] = 1;
+              this.next[i][j] = 1;
             } else if (state == 1 && (neighbors < 2 || neighbors > 3)) {
-              next[i][j] = 0;
+              this.next[i][j] = 0;
             } else {
-              next[i][j] = state;
+              this.next[i][j] = state;
             }
           }
         }
 
-        this.grid = next;
+        // Swap grids (much faster than reassigning)
+        let temp = this.grid;
+        this.grid = this.next;
+        this.next = temp;
       };
     },
     make2DArray(cols, rows) {
