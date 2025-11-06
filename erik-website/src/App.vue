@@ -1,24 +1,21 @@
 <template>
   <div id="app">
-    <!-- Toggle Button with Bauhaus geometric design -->
-    <div class="toggle-container">
-      <button
-        @click="toggleCompactMode"
-        class="bauhaus-toggle"
-        :class="{ 'compact': isCompact }"
-        :title="isCompact ? 'Expand content' : 'Minimize to reveal background'">
-        <div class="toggle-icon">
-          <div class="square"></div>
-          <div class="circle"></div>
-          <div class="triangle"></div>
-        </div>
-      </button>
-      <div class="toggle-caption" :class="{ 'compact': isCompact }" @click="toggleCompactMode">
-        {{ isCompact ? 'EXPAND' : 'EXPLORE BACKGROUNDS' }}
-      </div>
+    <!-- Bauhaus Geometric Decorations -->
+    <div class="bauhaus-decorations" v-show="!isCompact">
+      <div class="deco-circle red"></div>
+      <div class="deco-square blue"></div>
+      <div class="deco-triangle yellow"></div>
+      <div class="deco-line black"></div>
     </div>
 
+    <!-- Main Content Overlay -->
     <div class="overlay" :class="{ 'compact': isCompact }">
+      <!-- Compact Sidebar (when exploring backgrounds) -->
+      <div class="sidebar-header" v-if="isCompact">
+        <h2>EXPLORE</h2>
+        <p class="sidebar-subtitle">Choose a background</p>
+      </div>
+
       <div class="content-wrapper" :class="{ 'compact': isCompact }">
         <div>
           <HeaderSection />
@@ -27,11 +24,33 @@
           <LogoSection />
         </div>
       </div>
+
+      <!-- Background Selector integrated into sidebar -->
+      <BackgroundSelector
+        v-if="isCompact"
+        @background-changed="changeBackground"
+        class="sidebar-selector"
+      />
+
       <div class="projects-section" v-show="!isCompact">
         <ProjectCards />
       </div>
+
+      <!-- Toggle Button integrated into layout -->
+      <button
+        @click="toggleCompactMode"
+        class="bauhaus-toggle"
+        :class="{ 'compact': isCompact }"
+        :title="isCompact ? 'Show full content' : 'Explore backgrounds'">
+        <div class="toggle-icon">
+          <div class="square"></div>
+          <div class="circle"></div>
+          <div class="triangle"></div>
+        </div>
+        <span class="toggle-label">{{ isCompact ? 'EXPAND' : 'BACKGROUNDS' }}</span>
+      </button>
     </div>
-    <BackgroundSelector v-show="isCompact" @background-changed="changeBackground" />
+
     <component :is="currentBackground" class="attractor" :key="currentBackground" />
   </div>
 </template>
@@ -113,7 +132,8 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
+
 html,
 body {
   margin: 0;
@@ -121,7 +141,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
 }
 
 #app {
@@ -129,9 +149,6 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .attractor {
@@ -140,13 +157,67 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: black;
-  font-size: 24px;
+  z-index: 0;
 }
 
+/* Bauhaus Geometric Decorations */
+.bauhaus-decorations {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.deco-circle {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  top: 60px;
+  right: 80px;
+  opacity: 0.9;
+}
+
+.deco-square {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  bottom: 100px;
+  left: 100px;
+  opacity: 0.9;
+  transform: rotate(15deg);
+}
+
+.deco-triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 90px solid;
+  top: 50%;
+  right: 120px;
+  opacity: 0.85;
+  transform: translateY(-50%) rotate(-20deg);
+}
+
+.deco-line {
+  position: absolute;
+  width: 4px;
+  height: 200px;
+  top: 80px;
+  left: 60px;
+  opacity: 0.8;
+  transform: rotate(30deg);
+}
+
+.red { background-color: #E1000F; border-color: #E1000F; }
+.blue { background-color: #0033A0; border-color: #0033A0; }
+.yellow { background-color: #FFD100; border-color: #FFD100; }
+.black { background-color: #000; border-color: #000; }
+
+/* Main Overlay */
 .overlay {
   position: fixed;
   top: 0;
@@ -157,122 +228,146 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.95); /* Bauhaus white background */
-  color: black;
-  font-size: 24px;
-  z-index: 1000; /* ensures the overlay is above all other content */
-  overflow-y: auto; /* Allow scrolling if content is too tall */
-  padding: 20px 0;
-  transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.97) 0%, rgba(250, 250, 250, 0.95) 100%);
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 40px 20px;
+  transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .overlay.compact {
-  width: 320px;
+  width: 380px;
   left: 0;
-  background-color: rgba(255, 255, 255, 0.85);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(248, 248, 248, 0.93));
+  backdrop-filter: blur(10px);
   align-items: flex-start;
-  padding: 20px;
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
-  font-size: 16px;
+  padding: 30px;
+  box-shadow: 8px 0 40px rgba(0, 0, 0, 0.15);
+  border-right: 3px solid #E1000F;
 }
 
-.overlay.compact > div {
+/* Sidebar Header */
+.sidebar-header {
   width: 100%;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid #000;
 }
 
-.overlay.compact .projects-section {
-  font-size: 0.85em;
+.sidebar-header h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 8px 0;
+  color: #000;
 }
 
+.sidebar-subtitle {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #666;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Content Wrapper */
 .content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
 }
 
 .content-wrapper.compact {
-  height: 100%;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  gap: 15px;
+  margin-top: 20px;
 }
 
+/* Sidebar Selector */
+.sidebar-selector {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Projects Section */
 .projects-section {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.projects-section h2 {
-  display: none; /* Hide the heading as it's not in the reference image */
-}
-
-/* Bauhaus Toggle Container */
-.toggle-container {
-  position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3000; /* Higher than background selector */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+  margin-top: 40px;
 }
 
 /* Bauhaus Toggle Button */
 .bauhaus-toggle {
-  width: 80px;
-  height: 80px;
-  border: none;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 70px;
+  height: 70px;
+  border: 3px solid #000;
   background: white;
-  border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0;
+  padding: 8px;
+  gap: 4px;
+  overflow: hidden;
 }
 
 .bauhaus-toggle:hover {
-  transform: scale(1.15);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
+  transform: translate(-2px, -2px);
 }
 
 .bauhaus-toggle:active {
-  transform: scale(0.95);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+  transform: translate(1px, 1px);
+}
+
+.overlay.compact .bauhaus-toggle {
+  bottom: 30px;
+  right: auto;
+  left: 30px;
 }
 
 .toggle-icon {
   position: relative;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
-/* Bauhaus geometric shapes */
+/* Bauhaus geometric shapes in toggle */
 .toggle-icon .square {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  background: #E1000F; /* Bauhaus red */
-  top: 6px;
-  left: 6px;
+  width: 12px;
+  height: 12px;
+  background: #E1000F;
+  top: 2px;
+  left: 2px;
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .toggle-icon .circle {
   position: absolute;
-  width: 22px;
-  height: 22px;
-  background: #0033A0; /* Bauhaus blue */
+  width: 14px;
+  height: 14px;
+  background: #0033A0;
   border-radius: 50%;
-  bottom: 6px;
-  right: 6px;
+  bottom: 2px;
+  right: 2px;
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
@@ -280,18 +375,17 @@ body {
   position: absolute;
   width: 0;
   height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 20px solid #FFD100; /* Bauhaus yellow */
-  bottom: 6px;
-  left: 5px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 14px solid #FFD100;
+  bottom: 2px;
+  left: 2px;
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 /* Animated state when compact */
 .bauhaus-toggle.compact .square {
-  transform: rotate(45deg);
-  left: 12px;
+  transform: rotate(45deg) scale(1.1);
 }
 
 .bauhaus-toggle.compact .circle {
@@ -300,34 +394,47 @@ body {
 
 .bauhaus-toggle.compact .triangle {
   transform: rotate(180deg);
-  border-bottom-color: #FFD100;
 }
 
-/* Bauhaus Caption */
-.toggle-caption {
+/* Toggle Label */
+.toggle-label {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 2px;
+  font-size: 8px;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  color: black;
-  background: white;
-  padding: 8px 16px;
-  border: 2px solid black;
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
-  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-  white-space: nowrap;
-  cursor: pointer;
-  user-select: none;
+  color: #000;
+  text-align: center;
+  line-height: 1.2;
+  margin-top: 2px;
 }
 
-.toggle-caption:hover {
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
-  transform: translate(-2px, -2px);
-}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .overlay.compact {
+    width: 100%;
+    border-right: none;
+    border-bottom: 3px solid #E1000F;
+  }
 
-.toggle-caption.compact {
-  font-size: 10px;
-  padding: 6px 12px;
+  .bauhaus-decorations {
+    display: none;
+  }
+
+  .bauhaus-toggle {
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .toggle-icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .toggle-label {
+    font-size: 7px;
+  }
 }
 </style>
