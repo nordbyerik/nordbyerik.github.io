@@ -38,6 +38,11 @@ import BoidsBackground from "./components/BoidsBackground.vue";
 import LSystemBackground from "./components/LSystemBackground.vue";
 import GameOfLifeBackground from "./components/GameOfLifeBackground.vue";
 import FractalBackground from "./components/FractalBackground.vue";
+import SlimeMoldBackground from "./components/SlimeMoldBackground.vue";
+import AntColonyBackground from "./components/AntColonyBackground.vue";
+import ReactionDiffusionBackground from "./components/ReactionDiffusionBackground.vue";
+import VoronoiBackground from "./components/VoronoiBackground.vue";
+import DifferentialGrowthBackground from "./components/DifferentialGrowthBackground.vue";
 import LogoSection from "./components/LogoSection.vue";
 import ProjectCards from "./components/ProjectCards.vue";
 import BackgroundSelector from "./components/BackgroundSelector.vue";
@@ -51,6 +56,11 @@ export default {
     LSystemBackground,
     GameOfLifeBackground,
     FractalBackground,
+    SlimeMoldBackground,
+    AntColonyBackground,
+    ReactionDiffusionBackground,
+    VoronoiBackground,
+    DifferentialGrowthBackground,
     LogoSection,
     ProjectCards,
     BackgroundSelector
@@ -73,6 +83,11 @@ export default {
         lsystem: "LSystemBackground",
         gameoflife: "GameOfLifeBackground",
         fractal: "FractalBackground",
+        slimemold: "SlimeMoldBackground",
+        antcolony: "AntColonyBackground",
+        reactiondiffusion: "ReactionDiffusionBackground",
+        voronoi: "VoronoiBackground",
+        differentialgrowth: "DifferentialGrowthBackground",
       };
       this.currentBackground = backgroundMap[backgroundType];
     },
@@ -181,16 +196,17 @@ body {
 /* Bauhaus Toggle Button */
 .bauhaus-toggle {
   position: fixed;
-  top: 20px;
-  right: 90px; /* Position to the left of the background selector */
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 3000; /* Higher than background selector */
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border: none;
   background: white;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   display: flex;
   align-items: center;
@@ -199,18 +215,18 @@ body {
 }
 
 .bauhaus-toggle:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%) scale(1.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .bauhaus-toggle:active {
-  transform: scale(0.95);
+  transform: translateX(-50%) scale(0.95);
 }
 
 .toggle-icon {
   position: relative;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -219,22 +235,22 @@ body {
 /* Bauhaus geometric shapes */
 .toggle-icon .square {
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   background: #E1000F; /* Bauhaus red */
-  top: 4px;
-  left: 4px;
+  top: 6px;
+  left: 6px;
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .toggle-icon .circle {
   position: absolute;
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   background: #0033A0; /* Bauhaus blue */
   border-radius: 50%;
-  bottom: 4px;
-  right: 4px;
+  bottom: 6px;
+  right: 6px;
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
@@ -242,11 +258,11 @@ body {
   position: absolute;
   width: 0;
   height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 17px solid #FFD100; /* Bauhaus yellow */
-  bottom: 4px;
-  left: 3px;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 20px solid #FFD100; /* Bauhaus yellow */
+  bottom: 6px;
+  left: 5px;
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
