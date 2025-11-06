@@ -6,6 +6,11 @@
       <option value="lsystem">L-System</option>
       <option value="gameoflife">Game of Life</option>
       <option value="fractal">Fractal</option>
+      <option value="slimemold">Slime Mold</option>
+      <option value="antcolony">Ant Colony</option>
+      <option value="reactiondiffusion">Reaction-Diffusion</option>
+      <option value="voronoi">Voronoi Cells</option>
+      <option value="differentialgrowth">Differential Growth</option>
     </select>
   </div>
 </template>
