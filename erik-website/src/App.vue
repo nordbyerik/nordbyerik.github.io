@@ -1,6 +1,19 @@
 <template>
   <div id="app">
-    <div class="overlay">
+    <!-- Toggle Button with Bauhaus geometric design -->
+    <button
+      @click="toggleCompactMode"
+      class="bauhaus-toggle"
+      :class="{ 'compact': isCompact }"
+      :title="isCompact ? 'Expand content' : 'Minimize to reveal background'">
+      <div class="toggle-icon">
+        <div class="square"></div>
+        <div class="circle"></div>
+        <div class="triangle"></div>
+      </div>
+    </button>
+
+    <div class="overlay" :class="{ 'compact': isCompact }">
       <div>
         <HeaderSection />
       </div>
@@ -43,6 +56,7 @@ export default {
   data() {
     return {
       currentBackground: "LorenzAttractor",
+      isCompact: false,
     };
   },
   methods: {
@@ -59,6 +73,9 @@ export default {
         fractal: "FractalBackground",
       };
       this.currentBackground = backgroundMap[backgroundType];
+    },
+    toggleCompactMode() {
+      this.isCompact = !this.isCompact;
     },
   },
 };
@@ -115,6 +132,25 @@ body {
   z-index: 1000; /* ensures the overlay is above all other content */
   overflow-y: auto; /* Allow scrolling if content is too tall */
   padding: 20px 0;
+  transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.overlay.compact {
+  width: 320px;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.85);
+  align-items: flex-start;
+  padding: 20px;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
+}
+
+.overlay.compact > div {
+  width: 100%;
+}
+
+.overlay.compact .projects-section {
+  font-size: 0.85em;
 }
 
 .projects-section {
@@ -126,5 +162,92 @@ body {
 
 .projects-section h2 {
   display: none; /* Hide the heading as it's not in the reference image */
+}
+
+/* Bauhaus Toggle Button */
+.bauhaus-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  width: 60px;
+  height: 60px;
+  border: none;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.bauhaus-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.bauhaus-toggle:active {
+  transform: scale(0.95);
+}
+
+.toggle-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Bauhaus geometric shapes */
+.toggle-icon .square {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #E1000F; /* Bauhaus red */
+  top: 4px;
+  left: 4px;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.toggle-icon .circle {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #0033A0; /* Bauhaus blue */
+  border-radius: 50%;
+  bottom: 4px;
+  right: 4px;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.toggle-icon .triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 17px solid #FFD100; /* Bauhaus yellow */
+  bottom: 4px;
+  left: 3px;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Animated state when compact */
+.bauhaus-toggle.compact .square {
+  transform: rotate(45deg);
+  left: 12px;
+}
+
+.bauhaus-toggle.compact .circle {
+  transform: scale(1.2);
+}
+
+.bauhaus-toggle.compact .triangle {
+  transform: rotate(180deg);
+  border-bottom-color: #FFD100;
 }
 </style>
