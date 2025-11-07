@@ -36,8 +36,8 @@
       </div>
     </div>
 
-    <div class="overlay" :class="{ 'compact': isCompact }">
-      <div class="content-wrapper" :class="{ 'compact': isCompact }">
+    <div class="overlay" :class="{ 'compact': isCompact || showProjects }">
+      <div class="content-wrapper" :class="{ 'compact': isCompact || showProjects }">
         <div>
           <HeaderSection />
         </div>
@@ -45,12 +45,14 @@
           <LogoSection />
         </div>
       </div>
-      <transition name="projects-fade">
-        <div class="projects-section" v-show="showProjects">
-          <ProjectCards />
-        </div>
-      </transition>
     </div>
+
+    <transition name="projects-slide">
+      <div class="projects-overlay" v-show="showProjects">
+        <ProjectCards />
+      </div>
+    </transition>
+
     <BackgroundSelector v-show="isCompact" @background-changed="changeBackground" />
     <component :is="currentBackground" class="attractor" :key="currentBackground" />
   </div>
@@ -220,40 +222,46 @@ body {
   align-items: center;
 }
 
-.projects-section {
-  width: 100%;
+/* Projects Overlay - separate layer on top of background */
+.projects-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 320px); /* Full width minus compact sidebar width */
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  z-index: 1500; /* Between main overlay and toggle buttons */
+  overflow-y: auto;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
 }
 
-.projects-section h2 {
-  display: none; /* Hide the heading as it's not in the reference image */
-}
-
-/* Projects fade transition - similar to overlay transition */
-.projects-fade-enter-active, .projects-fade-leave-active {
+/* Projects slide transition - slides in from right */
+.projects-slide-enter-active, .projects-slide-leave-active {
   transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-.projects-fade-enter-from {
+.projects-slide-enter-from {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateX(100%);
 }
 
-.projects-fade-enter-to {
+.projects-slide-enter-to {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
-.projects-fade-leave-from {
+.projects-slide-leave-from {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
-.projects-fade-leave-to {
+.projects-slide-leave-to {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateX(100%);
 }
 
 /* Bauhaus Toggle Container */
