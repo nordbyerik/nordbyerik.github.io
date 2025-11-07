@@ -1,37 +1,49 @@
 <template>
   <div id="app">
-    <!-- Toggle Button with Bauhaus geometric design -->
-    <div class="toggle-container">
-      <button
-        @click="toggleCompactMode"
-        class="bauhaus-toggle"
-        :class="{ 'compact': isCompact }"
-        :title="isCompact ? 'Expand content' : 'Minimize to reveal background'">
-        <div class="toggle-icon">
-          <div class="square"></div>
-          <div class="circle"></div>
-          <div class="triangle"></div>
-        </div>
-      </button>
-      <div class="toggle-caption" :class="{ 'compact': isCompact }" @click="toggleCompactMode">
-        {{ isCompact ? 'EXPAND' : 'EXPLORE BACKGROUNDS' }}
-      </div>
+    <!-- Floating Bauhaus Shapes as decoration -->
+    <div class="bauhaus-decorations">
+      <div class="floating-shape shape-1"></div>
+      <div class="floating-shape shape-2"></div>
+      <div class="floating-shape shape-3"></div>
+      <div class="floating-shape shape-4"></div>
+      <div class="floating-shape shape-5"></div>
     </div>
 
-    <div class="overlay" :class="{ 'compact': isCompact }">
-      <div class="content-wrapper" :class="{ 'compact': isCompact }">
+    <!-- Main content overlay -->
+    <div class="overlay" :class="{ 'compact-left': showBackgrounds, 'compact-right': showProjects }">
+      <div class="content-wrapper">
         <div>
           <HeaderSection />
         </div>
         <div>
           <LogoSection />
         </div>
-      </div>
-      <div class="projects-section" v-show="!isCompact">
-        <ProjectCards />
+
+        <!-- Two action buttons -->
+        <div class="action-buttons" v-if="!showBackgrounds && !showProjects">
+          <button @click="toggleBackgrounds" class="action-button">
+            <span class="button-text">EXPLORE BACKGROUNDS</span>
+          </button>
+          <button @click="toggleProjects" class="action-button">
+            <span class="button-text">VIEW PROJECTS</span>
+          </button>
+        </div>
+
+        <!-- Back button when viewing backgrounds or projects -->
+        <div class="back-button-container" v-if="showBackgrounds || showProjects">
+          <button @click="goBack" class="back-button">
+            <span class="button-text">← BACK</span>
+          </button>
+        </div>
       </div>
     </div>
-    <BackgroundSelector v-show="isCompact" @background-changed="changeBackground" />
+
+    <!-- Projects panel (slides in from right) -->
+    <div class="projects-panel" :class="{ 'visible': showProjects }">
+      <ProjectCards />
+    </div>
+
+    <BackgroundSelector v-show="showBackgrounds" @background-changed="changeBackground" />
     <component :is="currentBackground" class="attractor" :key="currentBackground" />
   </div>
 </template>
@@ -79,7 +91,8 @@ export default {
   data() {
     return {
       currentBackground: "LorenzAttractor",
-      isCompact: false,
+      showBackgrounds: false,
+      showProjects: false,
     };
   },
   methods: {
@@ -105,8 +118,17 @@ export default {
       };
       this.currentBackground = backgroundMap[backgroundType];
     },
-    toggleCompactMode() {
-      this.isCompact = !this.isCompact;
+    toggleBackgrounds() {
+      this.showBackgrounds = true;
+      this.showProjects = false;
+    },
+    toggleProjects() {
+      this.showProjects = true;
+      this.showBackgrounds = false;
+    },
+    goBack() {
+      this.showBackgrounds = false;
+      this.showProjects = false;
     },
   },
 };
@@ -147,6 +169,97 @@ body {
   font-size: 24px;
 }
 
+/* Floating Bauhaus Shapes Decoration */
+.bauhaus-decorations {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 500;
+}
+
+.floating-shape {
+  position: absolute;
+  animation: float 20s ease-in-out infinite;
+}
+
+.shape-1 {
+  width: 60px;
+  height: 60px;
+  background: #E1000F;
+  top: 10%;
+  left: 15%;
+  animation-delay: 0s;
+  animation-duration: 25s;
+}
+
+.shape-2 {
+  width: 50px;
+  height: 50px;
+  background: #0033A0;
+  border-radius: 50%;
+  top: 60%;
+  right: 20%;
+  animation-delay: 5s;
+  animation-duration: 30s;
+}
+
+.shape-3 {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 52px solid #FFD100;
+  bottom: 20%;
+  left: 25%;
+  animation-delay: 10s;
+  animation-duration: 22s;
+}
+
+.shape-4 {
+  width: 40px;
+  height: 40px;
+  background: #E1000F;
+  transform: rotate(45deg);
+  top: 30%;
+  right: 15%;
+  animation-delay: 15s;
+  animation-duration: 28s;
+}
+
+.shape-5 {
+  width: 45px;
+  height: 45px;
+  background: #0033A0;
+  border-radius: 50%;
+  bottom: 15%;
+  right: 30%;
+  animation-delay: 7s;
+  animation-duration: 26s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(30px, -30px) rotate(90deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-20px, 40px) rotate(180deg);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translate(40px, 20px) rotate(270deg);
+    opacity: 0.5;
+  }
+}
+
+/* Main Overlay */
 .overlay {
   position: fixed;
   top: 0;
@@ -157,177 +270,117 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.95); /* Bauhaus white background */
+  background-color: rgba(255, 255, 255, 0.95);
   color: black;
   font-size: 24px;
-  z-index: 1000; /* ensures the overlay is above all other content */
-  overflow-y: auto; /* Allow scrolling if content is too tall */
+  z-index: 1000;
+  overflow-y: auto;
   padding: 20px 0;
-  transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-.overlay.compact {
+/* Slide content left when showing backgrounds */
+.overlay.compact-left {
   width: 320px;
   left: 0;
-  background-color: rgba(255, 255, 255, 0.85);
-  align-items: flex-start;
+  background-color: rgba(255, 255, 255, 0.90);
   padding: 20px;
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
-  font-size: 16px;
 }
 
-.overlay.compact > div {
-  width: 100%;
-}
-
-.overlay.compact .projects-section {
-  font-size: 0.85em;
+/* Slide content left when showing projects */
+.overlay.compact-right {
+  width: 320px;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.90);
+  padding: 20px;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 30px;
 }
 
-.content-wrapper.compact {
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-}
-
-.projects-section {
-  width: 100%;
+/* Action Buttons Container */
+.action-buttons {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 20px;
+  margin-top: 40px;
 }
 
-.projects-section h2 {
-  display: none; /* Hide the heading as it's not in the reference image */
-}
-
-/* Bauhaus Toggle Container */
-.toggle-container {
-  position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3000; /* Higher than background selector */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
-
-/* Bauhaus Toggle Button */
-.bauhaus-toggle {
-  width: 80px;
-  height: 80px;
-  border: none;
+.action-button {
   background: white;
-  border-radius: 50%;
+  border: 3px solid black;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 16px 32px;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.bauhaus-toggle:hover {
-  transform: scale(1.15);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-}
-
-.bauhaus-toggle:active {
-  transform: scale(0.95);
-}
-
-.toggle-icon {
-  position: relative;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Bauhaus geometric shapes */
-.toggle-icon .square {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: #E1000F; /* Bauhaus red */
-  top: 6px;
-  left: 6px;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-.toggle-icon .circle {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  background: #0033A0; /* Bauhaus blue */
-  border-radius: 50%;
-  bottom: 6px;
-  right: 6px;
-  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+.action-button:hover {
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
+  transform: translate(-2px, -2px);
 }
 
-.toggle-icon .triangle {
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 20px solid #FFD100; /* Bauhaus yellow */
-  bottom: 6px;
-  left: 5px;
-  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+.action-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* Animated state when compact */
-.bauhaus-toggle.compact .square {
-  transform: rotate(45deg);
-  left: 12px;
+/* Back Button */
+.back-button-container {
+  margin-top: 30px;
 }
 
-.bauhaus-toggle.compact .circle {
-  transform: scale(1.2);
-}
-
-.bauhaus-toggle.compact .triangle {
-  transform: rotate(180deg);
-  border-bottom-color: #FFD100;
-}
-
-/* Bauhaus Caption */
-.toggle-caption {
+.back-button {
+  background: white;
+  border: 2px solid black;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: black;
-  background: white;
-  padding: 8px 16px;
-  border: 2px solid black;
+  padding: 12px 24px;
+  cursor: pointer;
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-  white-space: nowrap;
-  cursor: pointer;
-  user-select: none;
 }
 
-.toggle-caption:hover {
+.back-button:hover {
   box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
   transform: translate(-2px, -2px);
 }
 
-.toggle-caption.compact {
-  font-size: 10px;
-  padding: 6px 12px;
+.back-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Projects Panel (slides in from right) */
+.projects-panel {
+  position: fixed;
+  top: 0;
+  right: -70%;
+  width: 70%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 40px;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+  transition: right 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.projects-panel.visible {
+  right: 0;
 }
 </style>
