@@ -1,20 +1,38 @@
 <template>
   <div id="app">
-    <!-- Toggle Button with Bauhaus geometric design -->
+    <!-- Toggle Buttons with Bauhaus geometric design -->
     <div class="toggle-container">
-      <button
-        @click="toggleCompactMode"
-        class="bauhaus-toggle"
-        :class="{ 'compact': isCompact }"
-        :title="isCompact ? 'Expand content' : 'Minimize to reveal background'">
-        <div class="toggle-icon">
-          <div class="square"></div>
-          <div class="circle"></div>
-          <div class="triangle"></div>
+      <div class="toggle-group">
+        <button
+          @click="toggleCompactMode"
+          class="bauhaus-toggle"
+          :class="{ 'compact': isCompact }"
+          :title="isCompact ? 'Expand content' : 'Minimize to reveal background'">
+          <div class="toggle-icon">
+            <div class="square"></div>
+            <div class="circle"></div>
+            <div class="triangle"></div>
+          </div>
+        </button>
+        <div class="toggle-caption" :class="{ 'compact': isCompact }" @click="toggleCompactMode">
+          {{ isCompact ? 'EXPAND' : 'EXPLORE BACKGROUNDS' }}
         </div>
-      </button>
-      <div class="toggle-caption" :class="{ 'compact': isCompact }" @click="toggleCompactMode">
-        {{ isCompact ? 'EXPAND' : 'EXPLORE BACKGROUNDS' }}
+      </div>
+      <div class="toggle-group">
+        <button
+          @click="toggleProjects"
+          class="bauhaus-toggle"
+          :class="{ 'active': showProjects }"
+          :title="showProjects ? 'Hide projects' : 'Show projects'">
+          <div class="toggle-icon">
+            <div class="square"></div>
+            <div class="circle"></div>
+            <div class="triangle"></div>
+          </div>
+        </button>
+        <div class="toggle-caption" :class="{ 'active': showProjects }" @click="toggleProjects">
+          {{ showProjects ? 'HIDE PROJECTS' : 'SHOW PROJECTS' }}
+        </div>
       </div>
     </div>
 
@@ -27,9 +45,11 @@
           <LogoSection />
         </div>
       </div>
-      <div class="projects-section" v-show="!isCompact">
-        <ProjectCards />
-      </div>
+      <transition name="projects-fade">
+        <div class="projects-section" v-show="showProjects">
+          <ProjectCards />
+        </div>
+      </transition>
     </div>
     <BackgroundSelector v-show="isCompact" @background-changed="changeBackground" />
     <component :is="currentBackground" class="attractor" :key="currentBackground" />
@@ -80,6 +100,7 @@ export default {
     return {
       currentBackground: "LorenzAttractor",
       isCompact: false,
+      showProjects: false,
     };
   },
   methods: {
@@ -107,6 +128,9 @@ export default {
     },
     toggleCompactMode() {
       this.isCompact = !this.isCompact;
+    },
+    toggleProjects() {
+      this.showProjects = !this.showProjects;
     },
   },
 };
@@ -207,6 +231,31 @@ body {
   display: none; /* Hide the heading as it's not in the reference image */
 }
 
+/* Projects fade transition - similar to overlay transition */
+.projects-fade-enter-active, .projects-fade-leave-active {
+  transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.projects-fade-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.projects-fade-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.projects-fade-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.projects-fade-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
 /* Bauhaus Toggle Container */
 .toggle-container {
   position: fixed;
@@ -214,6 +263,13 @@ body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 3000; /* Higher than background selector */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}
+
+.toggle-group {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -303,6 +359,21 @@ body {
   border-bottom-color: #FFD100;
 }
 
+/* Animated state when active (projects shown) */
+.bauhaus-toggle.active .square {
+  transform: rotate(45deg);
+  left: 12px;
+}
+
+.bauhaus-toggle.active .circle {
+  transform: scale(1.2);
+}
+
+.bauhaus-toggle.active .triangle {
+  transform: rotate(180deg);
+  border-bottom-color: #FFD100;
+}
+
 /* Bauhaus Caption */
 .toggle-caption {
   font-family: 'Montserrat', sans-serif;
@@ -327,6 +398,11 @@ body {
 }
 
 .toggle-caption.compact {
+  font-size: 10px;
+  padding: 6px 12px;
+}
+
+.toggle-caption.active {
   font-size: 10px;
   padding: 6px 12px;
 }
