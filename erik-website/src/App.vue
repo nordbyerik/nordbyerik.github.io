@@ -9,41 +9,38 @@
       <div class="floating-shape shape-5"></div>
     </div>
 
-    <!-- Main content overlay -->
-    <div class="overlay" :class="{ 'compact-left': showBackgrounds, 'compact-right': showProjects }">
-      <div class="content-wrapper">
+    <!-- Left side toggle button -->
+    <div class="side-toggle left" v-if="isContentCompact">
+      <button @click="toggleContentMode" class="toggle-button">
+        <span class="toggle-text">{{ isContentCompact ? 'EXPAND INFO' : 'HIDE INFO' }}</span>
+      </button>
+    </div>
+
+    <!-- Right side toggle button -->
+    <div class="side-toggle right" v-if="isProjectsCompact">
+      <button @click="toggleProjectsMode" class="toggle-button">
+        <span class="toggle-text">{{ isProjectsCompact ? 'VIEW PROJECTS' : 'HIDE PROJECTS' }}</span>
+      </button>
+    </div>
+
+    <!-- Main info overlay (left side) -->
+    <div class="overlay left-overlay" :class="{ 'compact': isContentCompact }">
+      <div class="content-wrapper" :class="{ 'compact': isContentCompact }">
         <div>
           <HeaderSection />
         </div>
         <div>
           <LogoSection />
         </div>
-
-        <!-- Two action buttons -->
-        <div class="action-buttons" v-if="!showBackgrounds && !showProjects">
-          <button @click="toggleBackgrounds" class="action-button">
-            <span class="button-text">EXPLORE BACKGROUNDS</span>
-          </button>
-          <button @click="toggleProjects" class="action-button">
-            <span class="button-text">VIEW PROJECTS</span>
-          </button>
-        </div>
-
-        <!-- Back button when viewing backgrounds or projects -->
-        <div class="back-button-container" v-if="showBackgrounds || showProjects">
-          <button @click="goBack" class="back-button">
-            <span class="button-text">← BACK</span>
-          </button>
-        </div>
       </div>
     </div>
 
-    <!-- Projects panel (slides in from right) -->
-    <div class="projects-panel" :class="{ 'visible': showProjects }">
+    <!-- Projects overlay (right side) -->
+    <div class="overlay right-overlay" :class="{ 'compact': isProjectsCompact }">
       <ProjectCards />
     </div>
 
-    <BackgroundSelector v-show="showBackgrounds" @background-changed="changeBackground" />
+    <BackgroundSelector v-show="isContentCompact && isProjectsCompact" @background-changed="changeBackground" />
     <component :is="currentBackground" class="attractor" :key="currentBackground" />
   </div>
 </template>
@@ -91,8 +88,8 @@ export default {
   data() {
     return {
       currentBackground: "LorenzAttractor",
-      showBackgrounds: false,
-      showProjects: false,
+      isContentCompact: false,
+      isProjectsCompact: false,
     };
   },
   methods: {
@@ -118,17 +115,11 @@ export default {
       };
       this.currentBackground = backgroundMap[backgroundType];
     },
-    toggleBackgrounds() {
-      this.showBackgrounds = true;
-      this.showProjects = false;
+    toggleContentMode() {
+      this.isContentCompact = !this.isContentCompact;
     },
-    toggleProjects() {
-      this.showProjects = true;
-      this.showBackgrounds = false;
-    },
-    goBack() {
-      this.showBackgrounds = false;
-      this.showProjects = false;
+    toggleProjectsMode() {
+      this.isProjectsCompact = !this.isProjectsCompact;
     },
   },
 };
@@ -259,12 +250,10 @@ body {
   }
 }
 
-/* Main Overlay */
+/* Overlay Styles */
 .overlay {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -275,112 +264,88 @@ body {
   font-size: 24px;
   z-index: 1000;
   overflow-y: auto;
-  padding: 20px 0;
+  padding: 20px;
   transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-/* Slide content left when showing backgrounds */
-.overlay.compact-left {
-  width: 320px;
+.left-overlay {
   left: 0;
-  background-color: rgba(255, 255, 255, 0.90);
-  padding: 20px;
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+  width: 50%;
 }
 
-/* Slide content left when showing projects */
-.overlay.compact-right {
-  width: 320px;
-  left: 0;
-  background-color: rgba(255, 255, 255, 0.90);
-  padding: 20px;
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+.left-overlay.compact {
+  width: 0;
+  padding: 0;
+  opacity: 0;
+}
+
+.right-overlay {
+  right: 0;
+  width: 50%;
+  padding: 40px;
+}
+
+.right-overlay.compact {
+  width: 0;
+  padding: 0;
+  opacity: 0;
 }
 
 .content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
 }
 
-/* Action Buttons Container */
-.action-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-top: 40px;
+.content-wrapper.compact {
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
-.action-button {
+/* Side Toggle Buttons */
+.side-toggle {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2000;
+}
+
+.side-toggle.left {
+  left: 20px;
+}
+
+.side-toggle.right {
+  right: 20px;
+}
+
+.toggle-button {
   background: white;
   border: 3px solid black;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 16px 32px;
-  cursor: pointer;
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2);
-  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-}
-
-.action-button:hover {
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
-  transform: translate(-2px, -2px);
-}
-
-.action-button:active {
-  transform: translate(2px, 2px);
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
-}
-
-/* Back Button */
-.back-button-container {
-  margin-top: 30px;
-}
-
-.back-button {
-  background: white;
-  border: 2px solid black;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 12px 24px;
+  padding: 16px 12px;
   cursor: pointer;
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
 
-.back-button:hover {
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
+.toggle-button:hover {
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
   transform: translate(-2px, -2px);
 }
 
-.back-button:active {
+.toggle-button:active {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* Projects Panel (slides in from right) */
-.projects-panel {
-  position: fixed;
-  top: 0;
-  right: -70%;
-  width: 70%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.95);
-  z-index: 1000;
-  overflow-y: auto;
-  padding: 40px;
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
-  transition: right 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
-}
-
-.projects-panel.visible {
-  right: 0;
+.toggle-text {
+  display: block;
 }
 </style>
