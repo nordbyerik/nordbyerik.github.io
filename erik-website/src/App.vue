@@ -1,31 +1,25 @@
 <template>
   <div id="app">
-    <!-- Floating Bauhaus Shapes as decoration -->
-    <div class="bauhaus-decorations">
-      <div class="floating-shape shape-1"></div>
-      <div class="floating-shape shape-2"></div>
-      <div class="floating-shape shape-3"></div>
-      <div class="floating-shape shape-4"></div>
-      <div class="floating-shape shape-5"></div>
-    </div>
-
-    <!-- Left side toggle button -->
-    <div class="side-toggle left" v-if="isContentCompact">
-      <button @click="toggleContentMode" class="toggle-button">
-        <span class="toggle-text">{{ isContentCompact ? 'EXPAND INFO' : 'HIDE INFO' }}</span>
+    <!-- Toggle Button with Bauhaus geometric design -->
+    <div class="toggle-container">
+      <button
+        @click="toggleCompactMode"
+        class="bauhaus-toggle"
+        :class="{ 'compact': isCompact }"
+        :title="isCompact ? 'Expand content' : 'Minimize to reveal background'">
+        <div class="toggle-icon">
+          <div class="square"></div>
+          <div class="circle"></div>
+          <div class="triangle"></div>
+        </div>
       </button>
+      <div class="toggle-caption" :class="{ 'compact': isCompact }" @click="toggleCompactMode">
+        {{ isCompact ? 'EXPAND' : 'EXPLORE BACKGROUNDS' }}
+      </div>
     </div>
 
-    <!-- Right side toggle button -->
-    <div class="side-toggle right" v-if="isProjectsCompact">
-      <button @click="toggleProjectsMode" class="toggle-button">
-        <span class="toggle-text">{{ isProjectsCompact ? 'VIEW PROJECTS' : 'HIDE PROJECTS' }}</span>
-      </button>
-    </div>
-
-    <!-- Main info overlay (left side) -->
-    <div class="overlay left-overlay" :class="{ 'compact': isContentCompact }">
-      <div class="content-wrapper" :class="{ 'compact': isContentCompact }">
+    <div class="overlay" :class="{ 'compact': isCompact }">
+      <div class="content-wrapper" :class="{ 'compact': isCompact }">
         <div>
           <HeaderSection />
         </div>
@@ -33,14 +27,11 @@
           <LogoSection />
         </div>
       </div>
+      <div class="projects-section" v-show="!isCompact">
+        <ProjectCards />
+      </div>
     </div>
-
-    <!-- Projects overlay (right side) -->
-    <div class="overlay right-overlay" :class="{ 'compact': isProjectsCompact }">
-      <ProjectCards />
-    </div>
-
-    <BackgroundSelector v-show="isContentCompact && isProjectsCompact" @background-changed="changeBackground" />
+    <BackgroundSelector v-show="isCompact" @background-changed="changeBackground" />
     <component :is="currentBackground" class="attractor" :key="currentBackground" />
   </div>
 </template>
@@ -88,8 +79,7 @@ export default {
   data() {
     return {
       currentBackground: "LorenzAttractor",
-      isContentCompact: false,
-      isProjectsCompact: false,
+      isCompact: false,
     };
   },
   methods: {
@@ -115,11 +105,8 @@ export default {
       };
       this.currentBackground = backgroundMap[backgroundType];
     },
-    toggleContentMode() {
-      this.isContentCompact = !this.isContentCompact;
-    },
-    toggleProjectsMode() {
-      this.isProjectsCompact = !this.isProjectsCompact;
+    toggleCompactMode() {
+      this.isCompact = !this.isCompact;
     },
   },
 };
@@ -160,135 +147,41 @@ body {
   font-size: 24px;
 }
 
-/* Floating Bauhaus Shapes Decoration */
-.bauhaus-decorations {
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
-  z-index: 500;
-}
-
-.floating-shape {
-  position: absolute;
-  animation: float 20s ease-in-out infinite;
-}
-
-.shape-1 {
-  width: 60px;
-  height: 60px;
-  background: #E1000F;
-  top: 10%;
-  left: 15%;
-  animation-delay: 0s;
-  animation-duration: 25s;
-}
-
-.shape-2 {
-  width: 50px;
-  height: 50px;
-  background: #0033A0;
-  border-radius: 50%;
-  top: 60%;
-  right: 20%;
-  animation-delay: 5s;
-  animation-duration: 30s;
-}
-
-.shape-3 {
-  width: 0;
-  height: 0;
-  border-left: 30px solid transparent;
-  border-right: 30px solid transparent;
-  border-bottom: 52px solid #FFD100;
-  bottom: 20%;
-  left: 25%;
-  animation-delay: 10s;
-  animation-duration: 22s;
-}
-
-.shape-4 {
-  width: 40px;
-  height: 40px;
-  background: #E1000F;
-  transform: rotate(45deg);
-  top: 30%;
-  right: 15%;
-  animation-delay: 15s;
-  animation-duration: 28s;
-}
-
-.shape-5 {
-  width: 45px;
-  height: 45px;
-  background: #0033A0;
-  border-radius: 50%;
-  bottom: 15%;
-  right: 30%;
-  animation-delay: 7s;
-  animation-duration: 26s;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translate(0, 0) rotate(0deg);
-    opacity: 0.3;
-  }
-  25% {
-    transform: translate(30px, -30px) rotate(90deg);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translate(-20px, 40px) rotate(180deg);
-    opacity: 0.4;
-  }
-  75% {
-    transform: translate(40px, 20px) rotate(270deg);
-    opacity: 0.5;
-  }
-}
-
-/* Overlay Styles */
-.overlay {
-  position: fixed;
-  top: 0;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.95); /* Bauhaus white background */
   color: black;
   font-size: 24px;
-  z-index: 1000;
-  overflow-y: auto;
-  padding: 20px;
-  transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+  z-index: 1000; /* ensures the overlay is above all other content */
+  overflow-y: auto; /* Allow scrolling if content is too tall */
+  padding: 20px 0;
+  transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-.left-overlay {
+.overlay.compact {
+  width: 320px;
   left: 0;
-  width: 50%;
+  background-color: rgba(255, 255, 255, 0.85);
+  align-items: flex-start;
+  padding: 20px;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
 }
 
-.left-overlay.compact {
-  width: 0;
-  padding: 0;
-  opacity: 0;
+.overlay.compact > div {
+  width: 100%;
 }
 
-.right-overlay {
-  right: 0;
-  width: 50%;
-  padding: 40px;
-}
-
-.right-overlay.compact {
-  width: 0;
-  padding: 0;
-  opacity: 0;
+.overlay.compact .projects-section {
+  font-size: 0.85em;
 }
 
 .content-wrapper {
@@ -303,49 +196,138 @@ body {
   align-items: center;
 }
 
-/* Side Toggle Buttons */
-.side-toggle {
+.projects-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.projects-section h2 {
+  display: none; /* Hide the heading as it's not in the reference image */
+}
+
+/* Bauhaus Toggle Container */
+.toggle-container {
   position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2000;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3000; /* Higher than background selector */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
-.side-toggle.left {
-  left: 20px;
-}
-
-.side-toggle.right {
-  right: 20px;
-}
-
-.toggle-button {
+/* Bauhaus Toggle Button */
+.bauhaus-toggle {
+  width: 80px;
+  height: 80px;
+  border: none;
   background: white;
-  border: 3px solid black;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.bauhaus-toggle:hover {
+  transform: scale(1.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.bauhaus-toggle:active {
+  transform: scale(0.95);
+}
+
+.toggle-icon {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Bauhaus geometric shapes */
+.toggle-icon .square {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #E1000F; /* Bauhaus red */
+  top: 6px;
+  left: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.toggle-icon .circle {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: #0033A0; /* Bauhaus blue */
+  border-radius: 50%;
+  bottom: 6px;
+  right: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.toggle-icon .triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 20px solid #FFD100; /* Bauhaus yellow */
+  bottom: 6px;
+  left: 5px;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Animated state when compact */
+.bauhaus-toggle.compact .square {
+  transform: rotate(45deg);
+  left: 12px;
+}
+
+.bauhaus-toggle.compact .circle {
+  transform: scale(1.2);
+}
+
+.bauhaus-toggle.compact .triangle {
+  transform: rotate(180deg);
+  border-bottom-color: #FFD100;
+}
+
+/* Bauhaus Caption */
+.toggle-caption {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 16px 12px;
-  cursor: pointer;
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2);
+  color: black;
+  background: white;
+  padding: 8px 16px;
+  border: 2px solid black;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
 }
 
-.toggle-button:hover {
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
+.toggle-caption:hover {
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
   transform: translate(-2px, -2px);
 }
 
-.toggle-button:active {
-  transform: translate(2px, 2px);
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
-}
-
-.toggle-text {
-  display: block;
+.toggle-caption.compact {
+  font-size: 10px;
+  padding: 6px 12px;
 }
 </style>
