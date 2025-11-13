@@ -11,28 +11,66 @@
         <ProjectCards />
       </div>
     </div>
-    <LorenzAttractor class="attractor" />
+    <BackgroundSelector @background-changed="changeBackground" />
+    <component :is="currentBackground" class="attractor" :key="currentBackground" />
   </div>
 </template>
 
 <script>
 import HeaderSection from "./components/HeaderSection.vue";
 import LorenzAttractor from "./components/LorenzAttractor.vue";
+import BoidsBackground from "./components/BoidsBackground.vue";
+import LSystemBackground from "./components/LSystemBackground.vue";
+import GameOfLifeBackground from "./components/GameOfLifeBackground.vue";
+import FractalBackground from "./components/FractalBackground.vue";
+import SandpileBackground from "./components/SandpileBackground.vue";
+import NeuralCABackground from "./components/NeuralCABackground.vue";
+import ReactionDiffusionBackground from "./components/ReactionDiffusionBackground.vue";
+import VoronoiBackground from "./components/VoronoiBackground.vue";
 import LogoSection from "./components/LogoSection.vue";
 import ProjectCards from "./components/ProjectCards.vue";
+import BackgroundSelector from "./components/BackgroundSelector.vue";
 
 export default {
   name: "App",
   components: {
     HeaderSection,
     LorenzAttractor,
+    BoidsBackground,
+    LSystemBackground,
+    GameOfLifeBackground,
+    FractalBackground,
+    SandpileBackground,
+    NeuralCABackground,
+    ReactionDiffusionBackground,
+    VoronoiBackground,
     LogoSection,
-    ProjectCards
+    ProjectCards,
+    BackgroundSelector
+  },
+  data() {
+    return {
+      currentBackground: "LorenzAttractor",
+    };
   },
   methods: {
     scrollToSection(id) {
       const section = document.getElementById(id);
       section.scrollIntoView({ behavior: "smooth" });
+    },
+    changeBackground(backgroundType) {
+      const backgroundMap = {
+        lorenz: "LorenzAttractor",
+        boids: "BoidsBackground",
+        lsystem: "LSystemBackground",
+        gameoflife: "GameOfLifeBackground",
+        fractal: "FractalBackground",
+        sandpile: "SandpileBackground",
+        neuralca: "NeuralCABackground",
+        reactiondiffusion: "ReactionDiffusionBackground",
+        voronoi: "VoronoiBackground",
+      };
+      this.currentBackground = backgroundMap[backgroundType];
     },
   },
 };
