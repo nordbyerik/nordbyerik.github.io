@@ -11,36 +11,61 @@
         <ProjectCards />
       </div>
     </div>
-    <LorenzAttractor class="attractor" />
+    <BackgroundSelector @background-changed="changeBackground" />
+    <component :is="currentBackground" class="attractor" :key="currentBackground" />
   </div>
 </template>
 
 <script>
 import HeaderSection from "./components/HeaderSection.vue";
 import LorenzAttractor from "./components/LorenzAttractor.vue";
+import BoidsBackground from "./components/BoidsBackground.vue";
+import LSystemBackground from "./components/LSystemBackground.vue";
+import GameOfLifeBackground from "./components/GameOfLifeBackground.vue";
+import FractalBackground from "./components/FractalBackground.vue";
 import LogoSection from "./components/LogoSection.vue";
 import ProjectCards from "./components/ProjectCards.vue";
+import BackgroundSelector from "./components/BackgroundSelector.vue";
 
 export default {
   name: "App",
   components: {
     HeaderSection,
     LorenzAttractor,
+    BoidsBackground,
+    LSystemBackground,
+    GameOfLifeBackground,
+    FractalBackground,
     LogoSection,
-    ProjectCards
+    ProjectCards,
+    BackgroundSelector
+  },
+  data() {
+    return {
+      currentBackground: "LorenzAttractor",
+    };
   },
   methods: {
     scrollToSection(id) {
       const section = document.getElementById(id);
       section.scrollIntoView({ behavior: "smooth" });
     },
+    changeBackground(backgroundType) {
+      const backgroundMap = {
+        lorenz: "LorenzAttractor",
+        boids: "BoidsBackground",
+        lsystem: "LSystemBackground",
+        gameoflife: "GameOfLifeBackground",
+        fractal: "FractalBackground",
+      };
+      this.currentBackground = backgroundMap[backgroundType];
+    },
   },
 };
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 html,
 body {
   margin: 0;
@@ -82,24 +107,43 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(242, 219, 192, 0.884); /* Lighter transparent overlay */
+  align-items: flex-start;
+  justify-content: flex-start;
+  background: linear-gradient(to right, 
+    rgba(255, 255, 255, 0.88) 0%, 
+    rgba(255, 255, 255, 0.85) 40%, 
+    rgba(255, 255, 255, 0.25) 70%, 
+    rgba(255, 255, 255, 0) 100%);
   color: black;
   font-size: 24px;
-  z-index: 1000; /* ensures the overlay is above all other content */
-  overflow-y: auto; /* Allow scrolling if content is too tall */
-  padding: 20px 0;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 50px 0 50px 80px;
 }
 
 .projects-section {
   width: 100%;
+  max-width: 720px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .projects-section h2 {
   display: none; /* Hide the heading as it's not in the reference image */
+}
+
+@media (max-width: 768px) {
+  .overlay {
+    padding: 30px 20px;
+    background: rgba(255, 255, 255, 0.70); /* More uniform on mobile */
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .projects-section {
+    max-width: 100%;
+    align-items: center;
+  }
 }
 </style>

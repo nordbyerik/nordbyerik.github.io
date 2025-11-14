@@ -13,7 +13,7 @@
         <h3>{{ project.title }}</h3>
         <p :class="{'show-all': expandedCard === index}">{{ project.description }}</p>
         <a :href="project.githubLink" target="_blank" class="github-link" @click.stop>
-          <span class="github-circle"></span>
+          <span class="github-square"></span>
           <span>WEBSITE</span>
         </a>
         <div class="expand-indicator" v-if="project.description.length > 100">
@@ -73,45 +73,38 @@ export default {
 };
 </script>
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
 /* --- START: UPDATED CONTAINER STYLES --- */
 .project-cards-container {
-  display: flex; /* CHANGED from 'grid' */
-  flex-wrap: wrap; /* ADDED */
-  justify-content: center; /* ADDED to center the cards */
-  gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 18px;
   width: 100%;
-  max-width: 1200px;
-  padding: 0 40px;
-  margin: 80px auto 30px;
-  /* REMOVED 'grid-template-columns' and 'justify-content: start' */
+  max-width: 720px;
+  padding: 0;
+  margin: 35px 0 40px 0;
 }
 /* --- END: UPDATED CONTAINER STYLES --- */
 
 .card {
-  /* --- ADDED: CARD WIDTH --- */
-  /* We now define the width here instead of in the grid container */
-  /* Calculation for 3 columns: (100% width - 2 * 30px gap) / 3 */
-  width: calc((100% - 60px) / 3);
-  /* --- END: ADDED --- */
-  
-  background: #f9f9f9;
-  height: 230px;
+  background: rgba(255, 255, 255, 0.92);
+  min-height: 200px;
+  height: auto;
   position: relative;
-  transition: transform 0.3s ease, height 0.3s ease;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  transition: all 0.25s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .card-content {
   position: relative;
-  padding: 20px;
+  padding: 20px 22px;
   display: flex;
   flex-direction: column;
   height: 100%;
-  border: 2px solid black;
+  border: 1.5px solid black;
   box-sizing: border-box;
 }
 
@@ -119,84 +112,86 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  height: 8px;
-  width: 40%;
+  height: 5px;
+  width: 45%;
 }
 
-/* Accent Colors */
-.accent-1 { background-color: #E53935; } /* Red */
-.accent-2 { background-color: #2196F3; } /* Blue */
-.accent-3 { background-color: #FFC107; } /* Yellow */
-.accent-4 { background-color: #4CAF50; } /* Green (New) */
-.accent-5 { background-color: #9C27B0; } /* Purple (New) */
+/* Accent Colors - Bauhaus Primary Colors Only */
+.accent-1 { background-color: #DE0000; } /* Bauhaus Red */
+.accent-2 { background-color: #004D9D; } /* Bauhaus Blue */
+.accent-3 { background-color: #FFCC00; } /* Bauhaus Yellow */
+.accent-4 { background-color: #DE0000; } /* Bauhaus Red */
+.accent-5 { background-color: #004D9D; } /* Bauhaus Blue */
 
 /* Card Border Styles (Grouped for repeating pattern) */
 .card-1 .card-content,
 .card-4 .card-content {
-  border-left-width: 5px;
-  padding-left: 25px;
+  border-left-width: 3px; /* Reduced from 5px */
+  padding-left: 20px; /* Reduced from 25px */
 }
 
 .card-2 .card-content,
 .card-5 .card-content {
-  border-top-width: 5px;
-  padding-top: 25px;
+  border-top-width: 3px; /* Reduced from 5px */
+  padding-top: 20px; /* Reduced from 25px */
 }
 
 .card-3 .card-content {
-  border-right-width: 5px;
-  padding-right: 25px;
+  border-right-width: 3px; /* Reduced from 5px */
+  padding-right: 20px; /* Reduced from 25px */
 }
 
 /* Card Accent Widths (Grouped for repeating pattern) */
 .card-1 .card-accent,
 .card-4 .card-accent {
-  width: 50%;
+  width: 45%;
 }
 
 .card-2 .card-accent,
 .card-5 .card-accent {
-  width: 40%;
+  width: 38%;
 }
 
 .card-3 .card-accent {
-  width: 60%;
+  width: 50%;
 }
 
+/* Subtle hover effect for interactivity */
 .card:hover {
-  transform: translateY(-5px);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.96);
+  transform: translateY(-2px);
 }
 
 .card.expanded {
-  height: auto;
-  min-height: 250px;
+  min-height: 220px;
   z-index: 10;
 }
 
 h3 {
-  margin-top: 15px;
+  margin-top: 12px;
   color: #000;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 1px;
+  font-size: 13px;
+  letter-spacing: 0.9px;
   text-transform: uppercase;
   cursor: pointer;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  line-height: 1.35;
 }
 
 p {
   flex-grow: 1;
-  margin: 15px 0;
+  margin: 10px 0 12px 0;
   color: #333;
   font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-  line-height: 1.4;
+  font-size: 12px;
+  line-height: 1.55;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  transition: all 0.3s ease;
   cursor: pointer;
   text-align: left;
 }
@@ -211,32 +206,21 @@ p.show-all {
   align-items: center;
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px; /* Reduced from 12px */
+  font-weight: 700;
   color: #000;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
+  letter-spacing: 0.8px; /* Slightly tighter */
   align-self: flex-start;
   margin-top: auto;
 }
 
-.github-circle {
+.github-square {
   display: inline-block;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
+  width: 12px; /* Reduced from 16px */
+  height: 12px; /* Reduced from 16px */
   background-color: #000;
-  margin-right: 8px;
-  transition: all 0.3s ease;
-}
-
-.github-link:hover {
-  color: #555;
-}
-
-.github-link:hover .github-circle {
-  background-color: #555;
+  margin-right: 6px; /* Reduced from 8px */
 }
 
 .expand-indicator {
@@ -246,26 +230,30 @@ p.show-all {
   margin-top: 10px;
   font-family: 'Montserrat', sans-serif;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 @media (max-width: 1024px) {
-  .card {
-    width: calc((100% - 30px) / 2);
+  .project-cards-container {
+    max-width: 600px;
+    gap: 16px;
   }
 }
 
 @media (max-width: 768px) {
-  .card {
-    width: 100%;
+  .project-cards-container {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    padding: 0;
+    gap: 14px;
   }
   
   .card {
-    height: 220px;
+    min-height: 180px;
   }
   
   .card.expanded {
-    min-height: 220px;
+    min-height: 200px;
   }
 }
 
